@@ -1,1114 +1,1348 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>SEASONS Grand | Sylhet</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600;700;800&display=swap"
-        rel="stylesheet" />
-    <style>
-        :root {
-            --bg: #111111;
-            --card: #1e1e1e;
-            --accent: #c9a84c;
-            --text: #f0f0f0;
-            --muted: #cfcfcf;
-            --nav-h: 76px;
-            --container: min(1120px, 92vw);
-            --radius: 14px;
-            --shadow: 0 16px 40px rgba(0, 0, 0, 0.38);
-            --transition: 220ms ease;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            background: radial-gradient(circle at 0% 0%, #1b1b1b 0%, var(--bg) 40%),
-                linear-gradient(180deg, #121212 0%, #0f0f0f 100%);
-            color: var(--text);
-            font-family: "Inter", sans-serif;
-            line-height: 1.65;
-            overflow-x: hidden;
-            position: relative;
-        }
-
-        body::before {
-            content: "";
-            position: fixed;
-            inset: 0;
-            pointer-events: none;
-            z-index: 9999;
-            opacity: 0.05;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.95' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
-        }
-
-        section {
-            padding: 100px 0;
-            scroll-margin-top: calc(var(--nav-h) + 16px);
-        }
-
-        .container {
-            width: var(--container);
-            margin: 0 auto;
-        }
-
-        h1,
-        h2,
-        h3 {
-            font-family: "Playfair Display", serif;
-            line-height: 1.2;
-            letter-spacing: 0.02em;
-        }
-
-        a {
-            color: inherit;
-            text-decoration: none;
-        }
-
-        .section-title {
-            color: var(--accent);
-            font-size: clamp(1.8rem, 3.6vw, 2.6rem);
-            text-align: center;
-            margin-bottom: 14px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 14px;
-        }
-
-        .section-title::before,
-        .section-title::after {
-            content: "◆";
-            font-size: 0.7em;
-            color: rgba(201, 168, 76, 0.9);
-        }
-
-        .section-subtitle {
-            text-align: center;
-            color: var(--muted);
-            margin-bottom: 34px;
-        }
-
-        .fade-in {
-            opacity: 0;
-            transform: translateY(34px);
-            transition: opacity 760ms ease, transform 760ms ease;
-        }
-
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .navbar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: var(--nav-h);
-            z-index: 1000;
-            background: rgba(10, 10, 10, 0.62);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid transparent;
-            transition: background var(--transition), border-color var(--transition);
-        }
-
-        .navbar.scrolled {
-            background: #111111;
-            border-bottom-color: rgba(201, 168, 76, 0.85);
-        }
-
-        .nav-wrap {
-            width: var(--container);
-            height: 100%;
-            margin: 0 auto;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 14px;
-        }
-
-        .brand {
-            color: var(--accent);
-            font-family: "Playfair Display", serif;
-            font-size: clamp(1.2rem, 2vw, 1.55rem);
-            letter-spacing: 0.05em;
-            font-weight: 700;
-            text-transform: uppercase;
-            white-space: nowrap;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 24px;
-            list-style: none;
-        }
-
-        .nav-links a {
-            color: var(--text);
-            font-weight: 500;
-            position: relative;
-            padding-bottom: 5px;
-        }
-
-        .nav-links a::after {
-            content: "";
-            position: absolute;
-            left: 0;
-            bottom: 0;
-            width: 0;
-            height: 1.5px;
-            background: var(--accent);
-            transition: width var(--transition);
-        }
-
-        .nav-links a:hover::after,
-        .nav-links a:focus-visible::after {
-            width: 100%;
-        }
-
-        .nav-links a.active::after {
-            width: 100%;
-            background: var(--accent);
-            height: 2px;
-        }
-
-        .hamburger {
-            display: none;
-            width: 42px;
-            height: 42px;
-            background: transparent;
-            border: 1px solid rgba(201, 168, 76, 0.55);
-            border-radius: 10px;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            color: var(--accent);
-            font-size: 1.35rem;
-        }
-
-        #home {
-            min-height: 100vh;
-            display: grid;
-            place-items: center;
-            text-align: center;
-            padding-top: calc(var(--nav-h) + 40px);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero-bg {
-            position: absolute;
-            inset: -2%;
-            z-index: 0;
-            background-image: linear-gradient(rgba(5, 5, 5, 0.64), rgba(5, 5, 5, 0.72)), url("./Seasons%20Grand%20Irl%20Images/Non%20food%20pics/1.png");
-            background-repeat: no-repeat;
-            background-position: center calc(50% + var(--hero-parallax, 0px));
-            background-size: 100% auto;
-            animation: ken-burns 10s ease-in-out infinite alternate;
-        }
-
-        #home::before {
-            content: "";
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(circle at center, rgba(201, 168, 76, 0.13), transparent 55%);
-            pointer-events: none;
-            z-index: 1;
-        }
-
-        @keyframes ken-burns {
-            from {
-                background-size: 100% auto;
-            }
-
-            to {
-                background-size: 108% auto;
-            }
-        }
-
-        .hero-content {
-            width: min(820px, 92vw);
-            z-index: 2;
-        }
-
-        .hero-title {
-            font-size: clamp(2.4rem, 7.8vw, 5rem);
-            color: var(--accent);
-            margin-bottom: 14px;
-            letter-spacing: 0.06em;
-            text-transform: uppercase;
-        }
-
-        .hero-sub {
-            color: var(--text);
-            font-size: clamp(1.02rem, 2.3vw, 1.28rem);
-            margin-bottom: 14px;
-        }
-
-        .hero-divider {
-            width: min(240px, 42vw);
-            height: 1px;
-            border: none;
-            margin: 0 auto 30px;
-            background: linear-gradient(90deg, transparent, var(--accent), transparent);
-        }
-
-        .hero-actions {
-            display: flex;
-            justify-content: center;
-            gap: 12px;
-            flex-wrap: wrap;
-        }
-
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            min-width: 158px;
-            border: 1px solid var(--accent);
-            color: var(--accent);
-            padding: 12px 20px;
-            border-radius: 50px;
-            font-weight: 600;
-            transition: background var(--transition), color var(--transition), transform var(--transition);
-        }
-
-        .btn:hover,
-        .btn:focus-visible {
-            background: var(--accent);
-            color: #131313;
-            transform: translateY(-2px);
-        }
-
-        #about {
-            background:
-                radial-gradient(circle at 50% 40%, rgba(201, 168, 76, 0.12) 0%, rgba(201, 168, 76, 0.02) 36%, rgba(0, 0, 0, 0) 70%),
-                linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(201, 168, 76, 0.04) 100%);
-        }
-
-        .about-title {
-            margin-bottom: 20px;
-        }
-
-        .about-title::before,
-        .about-title::after {
-            content: "";
-            height: 1px;
-            width: clamp(46px, 12vw, 90px);
-            display: inline-block;
-            background: linear-gradient(90deg, transparent, rgba(201, 168, 76, 0.85), transparent);
-        }
-
-        .about-copy {
-            width: min(800px, 92vw);
-            margin: 0 auto;
-            text-align: center;
-            color: var(--muted);
-            font-size: clamp(1rem, 2vw, 1.1rem);
-        }
-
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 16px;
-        }
-
-        .gallery-item {
-            border-radius: var(--radius);
-            overflow: hidden;
-            box-shadow: var(--shadow);
-            border: 1px solid rgba(201, 168, 76, 0.28);
-            aspect-ratio: 4 / 5;
-            background: #171717;
-            position: relative;
-        }
-
-        .gallery-item::before {
-            content: "";
-            position: absolute;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.4);
-            opacity: 0;
-            transition: opacity 280ms ease;
-            z-index: 1;
-        }
-
-        .gallery-item::after {
-            content: "+";
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%) scale(0.85);
-            color: var(--accent);
-            width: 44px;
-            height: 44px;
-            border: 1px solid rgba(201, 168, 76, 0.8);
-            border-radius: 50%;
-            display: grid;
-            place-items: center;
-            font-size: 1.38rem;
-            opacity: 0;
-            transition: opacity 280ms ease, transform 280ms ease;
-            z-index: 2;
-        }
-
-        .gallery-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 380ms ease;
-        }
-
-        .gallery-item:hover img {
-            transform: scale(1.06);
-        }
-
-        .gallery-item:hover::before,
-        .gallery-item:hover::after {
-            opacity: 1;
-        }
-
-        .gallery-item:hover::after {
-            transform: translate(-50%, -50%) scale(1);
-        }
-
-        .food-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 16px;
-        }
-
-        .food-card {
-            border-radius: var(--radius);
-            overflow: hidden;
-            background: linear-gradient(180deg, #1a1a1a 0%, #161616 100%);
-            box-shadow: var(--shadow);
-            transition: transform var(--transition), box-shadow var(--transition);
-            min-height: 360px;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .food-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45), 0 0 22px rgba(201, 168, 76, 0.42);
-        }
-
-        .food-card img {
-            width: 100%;
-            height: 75%;
-            object-fit: cover;
-            transition: transform 320ms ease;
-        }
-
-        .food-card:hover img {
-            transform: scale(1.04);
-        }
-
-        .food-card h3 {
-            font-size: 1.08rem;
-            color: var(--accent);
-            text-align: center;
-            padding: 18px 10px 14px;
-            position: relative;
-            flex: 1;
-            display: grid;
-            place-items: center;
-        }
-
-        .food-card h3::before {
-            content: "";
-            position: absolute;
-            top: 6px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 64px;
-            height: 1px;
-            background: rgba(201, 168, 76, 0.72);
-        }
-
-        #menu {
-            position: relative;
-        }
-
-        .menu-tabs {
-            position: sticky;
-            top: var(--nav-h);
-            z-index: 30;
-            background: rgba(17, 17, 17, 0.92);
-            backdrop-filter: blur(8px);
-            border: 1px solid rgba(201, 168, 76, 0.24);
-            border-bottom: 1px solid rgba(201, 168, 76, 0.95);
-            border-radius: 12px;
-            padding: 8px;
-            display: grid;
-            grid-template-columns: repeat(7, minmax(120px, 1fr));
-            gap: 6px;
-            overflow-x: auto;
-            margin-bottom: 18px;
-        }
-
-        .tab-btn {
-            background: transparent;
-            color: var(--accent);
-            border: 1px solid rgba(201, 168, 76, 0.62);
-            border-radius: 8px;
-            padding: 10px 12px;
-            font-weight: 500;
-            cursor: pointer;
-            white-space: nowrap;
-            transition: color var(--transition), border-color var(--transition), background var(--transition);
-        }
-
-        .tab-btn.active {
-            color: #131313;
-            border-color: var(--accent);
-            background: var(--accent);
-            box-shadow: none;
-        }
-
-        .tab-panels {
-            margin-top: 14px;
-        }
-
-        .tab-panel {
-            display: none;
-        }
-
-        .tab-panel.active {
-            display: block;
-            animation: panel-fade 340ms ease;
-        }
-
-        @keyframes panel-fade {
-            from {
-                opacity: 0;
-                transform: translateY(8px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .menu-placeholder {
-            background: #181818;
-            border: 1px solid rgba(201, 168, 76, 0.4);
-            border-radius: 12px;
-            min-height: 260px;
-            display: grid;
-            place-items: center;
-            text-align: center;
-            color: var(--accent);
-            font-size: clamp(1.08rem, 2vw, 1.26rem);
-            padding: 24px;
-            user-select: none;
-            transition: transform var(--transition), box-shadow var(--transition);
-            touch-action: manipulation;
-        }
-
-        .menu-placeholder.zoomed {
-            transform: scale(1.03);
-            box-shadow: 0 0 0 2px rgba(201, 168, 76, 0.48);
-        }
-
-        .menu-note {
-            margin-top: 14px;
-            color: var(--muted);
-            text-align: center;
-            font-size: 0.95rem;
-        }
-
-        #reviews {
-            overflow: hidden;
-        }
-
-        .review-mask {
-            -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 10%, #000 90%, transparent 100%);
-            mask-image: linear-gradient(90deg, transparent 0%, #000 10%, #000 90%, transparent 100%);
-        }
-
-        .review-track {
-            display: flex;
-            width: max-content;
-            gap: 18px;
-            animation: scroll-right 40s linear infinite;
-            padding: 6px 2px;
-        }
-
-        #reviews:hover .review-track {
-            animation-play-state: paused;
-        }
-
-        @keyframes scroll-right {
-            from {
-                transform: translateX(-50%);
-            }
-
-            to {
-                transform: translateX(0);
-            }
-        }
-
-        .review-card {
-            width: min(340px, 84vw);
-            border: 1px solid transparent;
-            background:
-                linear-gradient(var(--card), var(--card)) padding-box,
-                linear-gradient(140deg, rgba(201, 168, 76, 0.16), rgba(201, 168, 76, 0.5), rgba(201, 168, 76, 0.14)) border-box;
-            border-radius: 14px;
-            padding: 20px;
-            box-shadow: var(--shadow);
-            flex-shrink: 0;
-        }
-
-        .stars {
-            color: var(--accent);
-            letter-spacing: 2px;
-            font-size: 1.22rem;
-            margin-bottom: 10px;
-        }
-
-        .review-text {
-            color: #cccccc;
-            margin-bottom: 14px;
-            font-size: 0.96rem;
-        }
-
-        .review-author {
-            color: var(--accent);
-            font-weight: 600;
-            font-size: 0.92rem;
-        }
-
-        .contact-grid {
-            display: grid;
-            grid-template-columns: 1fr 1.05fr;
-            gap: 20px;
-            align-items: start;
-        }
-
-        .info-wrap {
-            display: grid;
-            gap: 10px;
-        }
-
-        .info-card {
-            background: var(--card);
-            border: 1px solid rgba(201, 168, 76, 0.2);
-            border-left: 4px solid var(--accent);
-            border-radius: 12px;
-            padding: 12px 14px;
-            color: #e8e8e8;
-            font-size: 0.95rem;
-            transition: transform var(--transition), box-shadow var(--transition);
-        }
-
-        .info-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35), 0 0 14px rgba(201, 168, 76, 0.25);
-        }
-
-        .social-row {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-top: 8px;
-        }
-
-        .social-btn {
-            border: 1px solid var(--accent);
-            color: var(--accent);
-            padding: 12px 18px;
-            border-radius: 50px;
-            font-weight: 600;
-            font-size: 0.98rem;
-            transition: background var(--transition), color var(--transition), transform var(--transition), box-shadow var(--transition);
-        }
-
-        .social-btn:hover,
-        .social-btn:focus-visible {
-            background: var(--accent);
-            color: #101010;
-            transform: translateY(-2px);
-            box-shadow: 0 8px 18px rgba(201, 168, 76, 0.28);
-        }
-
-        .map-frame {
-            width: 100%;
-            height: 400px;
-            border: 0;
-            border-radius: 12px;
-            box-shadow: var(--shadow);
-        }
-
-        footer {
-            border-top: 1px solid rgba(201, 168, 76, 0.8);
-            background: #101010;
-            padding: 22px 0 34px;
-            text-align: center;
-        }
-
-        .footer-copy {
-            color: #d2d2d2;
-            font-size: 0.92rem;
-            margin-bottom: 8px;
-        }
-
-        .footer-icons {
-            display: flex;
-            justify-content: center;
-            gap: 12px;
-            margin-bottom: 8px;
-            color: var(--accent);
-            font-size: 1.08rem;
-        }
-
-        .footer-site {
-            color: var(--accent);
-            letter-spacing: 0.04em;
-            font-size: 0.9rem;
-        }
-
-        @media (max-width: 1024px) {
-            .gallery-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .food-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .contact-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        @media (max-width: 760px) {
-            :root {
-                --nav-h: 70px;
-            }
-
-            .hamburger {
-                display: inline-flex;
-            }
-
-            .nav-links {
-                position: absolute;
-                top: calc(var(--nav-h) + 8px);
-                right: 4vw;
-                width: min(240px, 90vw);
-                border: 1px solid rgba(201, 168, 76, 0.36);
-                background: rgba(18, 18, 18, 0.96);
-                border-radius: 12px;
-                flex-direction: column;
-                padding: 14px;
-                gap: 12px;
-                box-shadow: var(--shadow);
-                opacity: 0;
-                pointer-events: none;
-                transform: translateY(-10px);
-                transition: opacity var(--transition), transform var(--transition);
-            }
-
-            .nav-links.open {
-                opacity: 1;
-                pointer-events: auto;
-                transform: translateY(0);
-            }
-
-            .gallery-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .menu-tabs {
-                display: flex;
-            }
-
-            .review-track {
-                animation-duration: 50s;
-            }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SEASONS Grand Sylhet — Fine Dining Restaurant</title>
+  <meta name="description" content="SEASONS Grand — A luxury fine dining experience in Sylhet, Bangladesh. Over 45 cuisines, artisan cocktails, and an unforgettable ambiance. Reserve your table today.">
+  <meta name="keywords" content="Seasons Grand, Sylhet restaurant, fine dining Sylhet, biryani, kebab, continental, luxury restaurant Bangladesh">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,700;1,400;1,700&family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* ========== RESET & BASE ========== */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: #0d0d0d;
+      color: #f5f0e8;
+      font-family: 'Inter', sans-serif;
+      font-weight: 300;
+      line-height: 1.7;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { text-decoration: none; color: inherit; }
+    ul { list-style: none; }
+    img { display: block; max-width: 100%; }
+    button { font-family: inherit; cursor: pointer; border: none; background: none; }
+
+    /* ========== UTILITY ========== */
+    .label-caps {
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #c9a84c;
+    }
+    .heading-lg {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 700;
+      font-style: italic;
+      line-height: 1.15;
+    }
+    .heading-playfair {
+      font-family: 'Playfair Display', serif;
+      font-weight: 600;
+    }
+    .text-muted { color: #888880; }
+    .text-gold { color: #c9a84c; }
+    .gold-line {
+      width: 60px;
+      height: 1px;
+      background: rgba(201,168,76,0.5);
+    }
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+
+    /* ========== REVEAL ANIMATIONS ========== */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ========== NAVBAR ========== */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      padding: 20px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.4s ease, border-color 0.4s ease, padding 0.4s ease;
+      border-bottom: 1px solid transparent;
+    }
+    .navbar.scrolled {
+      background: #0d0d0d;
+      border-bottom: 1px solid rgba(201,168,76,0.3);
+      padding: 14px 40px;
+    }
+    .nav-logo {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .nav-logo-main {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 700;
+      font-size: 1.6rem;
+      color: #c9a84c;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      line-height: 1;
+    }
+    .nav-logo-sub {
+      font-family: 'Inter', sans-serif;
+      font-weight: 300;
+      font-size: 0.6rem;
+      color: #f5f0e8;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      margin-top: 2px;
+    }
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      align-items: center;
+    }
+    .nav-links a {
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #f5f0e8;
+      position: relative;
+      padding: 4px 0;
+      transition: color 0.3s;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0%;
+      height: 1px;
+      background: #c9a84c;
+      transition: width 0.3s ease;
+    }
+    .nav-links a:hover { color: #c9a84c; }
+    .nav-links a:hover::after { width: 100%; }
+
+    /* Mobile hamburger */
+    .nav-hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      z-index: 1001;
+    }
+    .nav-hamburger span {
+      display: block;
+      width: 24px;
+      height: 1.5px;
+      background: #c9a84c;
+      transition: all 0.3s;
+    }
+    .nav-hamburger.active span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .nav-hamburger.active span:nth-child(2) { opacity: 0; }
+    .nav-hamburger.active span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      background: rgba(13,13,13,0.97);
+      z-index: 999;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 28px;
+      opacity: 0;
+      transition: opacity 0.4s;
+    }
+    .mobile-menu.open { display: flex; opacity: 1; }
+    .mobile-menu a {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 700;
+      font-style: italic;
+      font-size: 2rem;
+      color: #f5f0e8;
+      transition: color 0.3s;
+    }
+    .mobile-menu a:hover { color: #c9a84c; }
+
+    /* ========== HERO ========== */
+    .hero {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      min-height: 600px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: url('Seasons Grand Irl Images/Non food pics/1.png') center/cover no-repeat;
+      animation: kenBurns 12s ease-in-out infinite alternate;
+      will-change: transform;
+    }
+    @keyframes kenBurns {
+      0% { transform: scale(1); }
+      100% { transform: scale(1.08); }
+    }
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      padding-left: 8%;
+      max-width: 700px;
+    }
+    .hero-est {
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 0.65rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: #c9a84c;
+      margin-bottom: 16px;
+    }
+    .hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 700;
+      font-style: italic;
+      font-size: clamp(4rem, 10vw, 8rem);
+      color: #c9a84c;
+      line-height: 0.95;
+    }
+    .hero-grand {
+      font-family: 'Inter', sans-serif;
+      font-weight: 300;
+      font-size: clamp(1.2rem, 3vw, 2rem);
+      color: #f5f0e8;
+      letter-spacing: 0.5em;
+      text-transform: uppercase;
+      margin-top: 4px;
+    }
+    .hero-line {
+      width: 80px;
+      height: 1px;
+      background: rgba(201,168,76,0.6);
+      margin: 28px 0;
+    }
+    .hero-tagline {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 1.35rem;
+      color: rgba(245,240,232,0.7);
+      margin-bottom: 36px;
+    }
+    .hero-buttons {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .btn-pill {
+      display: inline-block;
+      padding: 14px 36px;
+      border-radius: 50px;
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      transition: all 0.35s ease;
+    }
+    .btn-gold {
+      background: #c9a84c;
+      color: #0d0d0d;
+    }
+    .btn-gold:hover {
+      background: #e8c96d;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(201,168,76,0.25);
+    }
+    .btn-outline {
+      border: 1px solid rgba(201,168,76,0.5);
+      color: #c9a84c;
+    }
+    .btn-outline:hover {
+      background: rgba(201,168,76,0.1);
+      border-color: #c9a84c;
+      transform: translateY(-2px);
+    }
+
+    /* Scroll indicator */
+    .scroll-indicator {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      z-index: 3;
+    }
+    .scroll-indicator .line {
+      width: 1px;
+      height: 50px;
+      background: rgba(201,168,76,0.3);
+      position: relative;
+      overflow: hidden;
+    }
+    .scroll-indicator .line::after {
+      content: '';
+      position: absolute;
+      top: -6px;
+      left: -2.5px;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #c9a84c;
+      animation: scrollDot 2s ease-in-out infinite;
+    }
+    @keyframes scrollDot {
+      0% { top: -6px; opacity: 1; }
+      100% { top: 50px; opacity: 0; }
+    }
+
+    /* ========== ABOUT SECTION ========== */
+    .about {
+      position: relative;
+      padding: 140px 0 120px;
+      clip-path: polygon(0 5%, 100% 0, 100% 100%, 0 100%);
+      background: #0d0d0d;
+      margin-top: -60px;
+    }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 40% 60%;
+      gap: 60px;
+      align-items: center;
+    }
+    .stats-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+    .stat-card {
+      padding: 24px 0;
+      border-bottom: 1px solid rgba(201,168,76,0.2);
+    }
+    .stat-number {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 700;
+      font-size: 3.2rem;
+      color: #c9a84c;
+      line-height: 1;
+    }
+    .stat-label {
+      font-family: 'Inter', sans-serif;
+      font-weight: 400;
+      font-size: 0.8rem;
+      color: #888880;
+      margin-top: 8px;
+      letter-spacing: 0.05em;
+    }
+    .about-text h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 700;
+      font-style: italic;
+      font-size: clamp(2rem, 4vw, 3rem);
+      color: #f5f0e8;
+      margin-bottom: 24px;
+      line-height: 1.2;
+    }
+    .about-text p {
+      color: #888880;
+      font-size: 0.95rem;
+      line-height: 1.8;
+      max-width: 520px;
+    }
+    .about-text p + p {
+      margin-top: 16px;
+    }
+
+    /* ========== DECORATIVE ELEMENTS ========== */
+    .deco-dots {
+      position: absolute;
+      width: 80px;
+      height: 80px;
+      opacity: 0.15;
+    }
+    .deco-dots::before {
+      content: '• • •\A• • •\A• • •';
+      white-space: pre;
+      color: #c9a84c;
+      font-size: 14px;
+      letter-spacing: 8px;
+      line-height: 1.8;
+    }
+
+    /* ========== GALLERY ========== */
+    .gallery {
+      padding: 100px 0;
+      position: relative;
+    }
+    .gallery-label {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: 60% 40%;
+      grid-template-rows: 1fr 1fr;
+      gap: 4px;
+      height: 65vh;
+      min-height: 450px;
+      max-height: 700px;
+    }
+    .gallery-item {
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+    }
+    .gallery-item:first-child {
+      grid-row: 1 / 3;
+    }
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .gallery-item::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.35);
+      transition: background 0.5s;
+    }
+    .gallery-item:hover img { transform: scale(1.06); }
+    .gallery-item:hover::after { background: rgba(0,0,0,0.1); }
+    .gallery-floating-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 2;
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-weight: 700;
+      font-size: clamp(1.6rem, 3vw, 2.5rem);
+      color: #c9a84c;
+      text-align: center;
+      pointer-events: none;
+      text-shadow: 0 4px 30px rgba(0,0,0,0.6);
+    }
+
+    /* ========== FOOD HIGHLIGHTS ========== */
+    .highlights {
+      padding: 100px 0 120px;
+    }
+    .highlights-header {
+      margin-bottom: 48px;
+    }
+    .highlights-header h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 700;
+      font-style: italic;
+      font-size: clamp(2rem, 4vw, 3rem);
+      color: #f5f0e8;
+      margin-top: 12px;
+    }
+    .highlights-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+    .highlight-card {
+      position: relative;
+      border-radius: 12px;
+      overflow: hidden;
+      height: 400px;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: border-color 0.4s;
+    }
+    .highlight-card:hover { border-color: #c9a84c; }
+    .highlight-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.8s;
+    }
+    .highlight-card:hover img { transform: scale(1.08); }
+    .highlight-card .overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 50%);
+      display: flex;
+      align-items: flex-end;
+      padding: 24px;
+    }
+    .highlight-card .overlay span {
+      font-family: 'Playfair Display', serif;
+      font-weight: 600;
+      font-size: 1.1rem;
+      color: #f5f0e8;
+    }
+
+    /* ========== MENU SECTION ========== */
+    .menu-section {
+      padding: 100px 0 120px;
+      position: relative;
+    }
+    .menu-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 1px;
+      height: 60px;
+      background: linear-gradient(to bottom, transparent, rgba(201,168,76,0.4));
+    }
+    .menu-header {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+    .menu-header h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 700;
+      font-style: italic;
+      font-size: clamp(2.2rem, 4vw, 3.2rem);
+      color: #f5f0e8;
+      margin-top: 12px;
+    }
+    .menu-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 48px;
+    }
+    .menu-tab {
+      padding: 10px 22px;
+      border-radius: 50px;
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #888880;
+      border: 1px solid rgba(201,168,76,0.2);
+      background: transparent;
+      transition: all 0.3s;
+      cursor: pointer;
+    }
+    .menu-tab:hover {
+      color: #c9a84c;
+      border-color: rgba(201,168,76,0.5);
+    }
+    .menu-tab.active {
+      background: #c9a84c;
+      color: #0d0d0d;
+      border-color: #c9a84c;
+    }
+    .menu-grid {
+      display: none;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0;
+    }
+    .menu-grid.active { display: grid; }
+    .menu-item {
+      padding: 24px 28px;
+      border-bottom: 1px solid rgba(201,168,76,0.12);
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+      transition: background 0.3s;
+      cursor: default;
+    }
+    .menu-item:hover {
+      background: rgba(201,168,76,0.03);
+      box-shadow: inset 0 0 30px rgba(201,168,76,0.03);
+    }
+    .menu-item-info { flex: 1; }
+    .menu-item-name {
+      font-family: 'Playfair Display', serif;
+      font-weight: 600;
+      font-size: 1rem;
+      color: #c9a84c;
+      margin-bottom: 4px;
+    }
+    .menu-item-desc {
+      font-family: 'Inter', sans-serif;
+      font-weight: 300;
+      font-size: 0.8rem;
+      color: #888880;
+    }
+    .menu-item-price {
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 0.85rem;
+      color: #c9a84c;
+      white-space: nowrap;
+      text-align: right;
+    }
+
+    /* ========== REVIEWS SECTION ========== */
+    .reviews {
+      padding: 120px 0 100px;
+      position: relative;
+      clip-path: polygon(0 0, 100% 4%, 100% 100%, 0 100%);
+      background: #0a0a0a;
+      margin-top: -40px;
+    }
+    .reviews-header {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+    .reviews-header h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 700;
+      font-style: italic;
+      font-size: clamp(2rem, 4vw, 3rem);
+      color: #f5f0e8;
+      margin-bottom: 12px;
+    }
+    .reviews-header p {
+      font-size: 0.85rem;
+      color: #888880;
+    }
+    .reviews-track-wrapper {
+      position: relative;
+      overflow: hidden;
+      mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
+      -webkit-mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
+    }
+    .reviews-track {
+      display: flex;
+      gap: 24px;
+      animation: scrollReviews 30s linear infinite;
+      width: max-content;
+    }
+    .reviews-track:hover { animation-play-state: paused; }
+    @keyframes scrollReviews {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    .review-card {
+      flex-shrink: 0;
+      width: 380px;
+      background: #161616;
+      border-radius: 16px;
+      padding: 32px;
+      position: relative;
+      border: 1px solid rgba(201,168,76,0.1);
+      transition: border-color 0.3s;
+    }
+    .review-card:hover { border-color: rgba(201,168,76,0.35); }
+    .review-stars {
+      color: #c9a84c;
+      font-size: 0.9rem;
+      margin-bottom: 16px;
+      letter-spacing: 2px;
+    }
+    .review-text {
+      font-size: 0.88rem;
+      color: #cccccc;
+      line-height: 1.7;
+      margin-bottom: 20px;
+      font-style: italic;
+    }
+    .review-author {
+      font-family: 'Playfair Display', serif;
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: #c9a84c;
+    }
+    .review-badge {
+      font-size: 0.7rem;
+      color: #888880;
+      margin-top: 2px;
+    }
+
+    /* ========== CONTACT SECTION ========== */
+    .contact {
+      padding: 120px 0 80px;
+    }
+    .contact-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+    .contact-header h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 700;
+      font-style: italic;
+      font-size: clamp(2rem, 4vw, 3rem);
+      color: #f5f0e8;
+      margin-top: 12px;
+    }
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: start;
+    }
+    .contact-info-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 18px 20px;
+      border-left: 2px solid rgba(201,168,76,0.4);
+      background: #161616;
+      border-radius: 0 10px 10px 0;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .contact-item:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+    }
+    .contact-item-icon {
+      font-size: 1.2rem;
+      flex-shrink: 0;
+      width: 28px;
+      text-align: center;
+    }
+    .contact-item-text {
+      font-size: 0.88rem;
+      color: #cccccc;
+      line-height: 1.5;
+    }
+    .contact-item-text a {
+      color: #c9a84c;
+      transition: color 0.3s;
+    }
+    .contact-item-text a:hover { color: #e8c96d; }
+    .social-buttons {
+      display: flex;
+      gap: 12px;
+      margin-top: 24px;
+      flex-wrap: wrap;
+    }
+    .social-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 24px;
+      border-radius: 50px;
+      border: 1px solid rgba(201,168,76,0.4);
+      color: #c9a84c;
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      transition: all 0.3s;
+    }
+    .social-btn:hover {
+      background: #c9a84c;
+      color: #0d0d0d;
+      border-color: #c9a84c;
+    }
+    .social-btn svg {
+      width: 16px;
+      height: 16px;
+      fill: currentColor;
+    }
+    .contact-map {
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid rgba(201,168,76,0.15);
+    }
+    .contact-map iframe {
+      width: 100%;
+      height: 420px;
+      border: 0;
+      filter: grayscale(0.5) brightness(0.85);
+      transition: filter 0.4s;
+    }
+    .contact-map:hover iframe {
+      filter: grayscale(0) brightness(1);
+    }
+
+    /* ========== FOOTER ========== */
+    .footer {
+      background: #080808;
+      padding: 40px 0 32px;
+      border-top: 1px solid rgba(201,168,76,0.2);
+      text-align: center;
+    }
+    .footer-copy {
+      font-size: 0.78rem;
+      color: #888880;
+      margin-bottom: 16px;
+    }
+    .footer-socials {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-bottom: 16px;
+    }
+    .footer-socials a {
+      color: #888880;
+      transition: color 0.3s;
+    }
+    .footer-socials a:hover { color: #c9a84c; }
+    .footer-socials svg { width: 18px; height: 18px; fill: currentColor; }
+    .footer-site {
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 0.72rem;
+      color: #c9a84c;
+      letter-spacing: 0.1em;
+    }
+
+    /* ========== FLOATING DECORATIONS ========== */
+    .deco-line-v {
+      position: absolute;
+      width: 1px;
+      height: 120px;
+      background: linear-gradient(to bottom, transparent, rgba(201,168,76,0.2), transparent);
+    }
+    .deco-line-h {
+      position: absolute;
+      height: 1px;
+      width: 120px;
+      background: linear-gradient(to right, transparent, rgba(201,168,76,0.2), transparent);
+    }
+
+    /* ========== RESPONSIVE ========== */
+    @media (max-width: 1024px) {
+      .highlights-grid { grid-template-columns: repeat(2, 1fr); }
+      .menu-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 768px) {
+      .navbar { padding: 16px 24px; }
+      .navbar.scrolled { padding: 12px 24px; }
+      .nav-links { display: none; }
+      .nav-hamburger { display: flex; }
+      .container { padding: 0 20px; }
+      .hero-content { padding-left: 5%; }
+      .about { padding: 100px 0 80px; clip-path: polygon(0 3%, 100% 0, 100% 100%, 0 100%); }
+      .about-grid { grid-template-columns: 1fr; gap: 40px; }
+      .stats-stack { flex-direction: row; flex-wrap: wrap; gap: 20px; }
+      .stat-card { flex: 1; min-width: 120px; }
+      .gallery-grid {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto auto;
+        height: auto;
+      }
+      .gallery-item:first-child { grid-row: auto; }
+      .gallery-item { height: 250px; }
+      .gallery-item img { height: 100%; }
+      .highlights-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+      }
+      .highlight-card { height: 280px; }
+      .contact-grid { grid-template-columns: 1fr; }
+      .reviews { clip-path: polygon(0 0, 100% 2%, 100% 100%, 0 100%); }
+      .review-card { width: 300px; }
+    }
+
+    @media (max-width: 480px) {
+      .hero-title { font-size: 3.5rem; }
+      .hero-grand { font-size: 1rem; letter-spacing: 0.3em; }
+      .highlights-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+      .highlight-card { height: 220px; }
+      .menu-tabs { gap: 6px; }
+      .menu-tab { padding: 8px 16px; font-size: 0.62rem; }
+    }
+  </style>
 </head>
-
 <body>
-    <header class="navbar">
-        <nav class="nav-wrap" aria-label="Main navigation">
-            <a class="brand" href="#home">SEASONS Grand</a>
-            <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">☰</button>
-            <ul class="nav-links" id="navLinks">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#menu">Menu</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
 
-    <main>
-        <section id="home">
-            <div class="hero-bg" aria-hidden="true"></div>
-            <div class="hero-content fade-in">
-                <h1 class="hero-title">SEASONS Grand</h1>
-                <p class="hero-sub">Where Every Flavour Finds Its Season</p>
-                <hr class="hero-divider" />
-                <div class="hero-actions">
-                    <a class="btn" href="#menu">Explore Menu</a>
-                    <a class="btn" href="#contact">Find Us</a>
-                </div>
-            </div>
-        </section>
+  <!-- ========== NAVBAR ========== -->
+  <nav class="navbar" id="navbar">
+    <a href="#" class="nav-logo">
+      <span class="nav-logo-main">SEASONS</span>
+      <span class="nav-logo-sub">GRAND</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#gallery">Gallery</a></li>
+      <li><a href="#menu">Menu</a></li>
+      <li><a href="#reviews">Reviews</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="nav-hamburger" id="hamburger" onclick="toggleMobileMenu()">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
 
-        <section id="about" class="fade-in">
-            <div class="container">
-                <h2 class="section-title about-title">A Culinary Haven in Sylhet</h2>
-                <p class="about-copy">
-                    SEASONS Grand is a premier multi-cuisine dining destination in the heart of Sylhet. From authentic
-                    Kacchi Biryani and Indian Kebabs to Thai Curry, Cantonese dishes, Continental Pasta and artisan
-                    Desserts - every plate is crafted to perfection. Dine-in and experience flavours from around the
-                    world.
-                </p>
-            </div>
-        </section>
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#about" onclick="closeMobileMenu()">About</a>
+    <a href="#gallery" onclick="closeMobileMenu()">Gallery</a>
+    <a href="#menu" onclick="closeMobileMenu()">Menu</a>
+    <a href="#reviews" onclick="closeMobileMenu()">Reviews</a>
+    <a href="#contact" onclick="closeMobileMenu()">Contact</a>
+  </div>
 
-        <section id="gallery" class="fade-in">
-            <div class="container">
-                <h2 class="section-title">Experience the Ambiance</h2>
-                <div class="gallery-grid">
-                    <figure class="gallery-item">
-                        <img src="./Seasons%20Grand%20Irl%20Images/Non%20food%20pics/1.png"
-                            alt="SEASONS Grand interior view 1" loading="lazy" />
-                    </figure>
-                    <figure class="gallery-item">
-                        <img src="./Seasons%20Grand%20Irl%20Images/Non%20food%20pics/2.png"
-                            alt="SEASONS Grand interior view 2" loading="lazy" />
-                    </figure>
-                    <figure class="gallery-item">
-                        <img src="./Seasons%20Grand%20Irl%20Images/Non%20food%20pics/3.png"
-                            alt="SEASONS Grand interior view 3" loading="lazy" />
-                    </figure>
-                </div>
-            </div>
-        </section>
+  <!-- ========== HERO ========== -->
+  <section class="hero" id="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <p class="hero-est">Est. Sylhet, Bangladesh</p>
+      <h1 class="hero-title">SEASONS</h1>
+      <p class="hero-grand">GRAND</p>
+      <div class="hero-line"></div>
+      <p class="hero-tagline">Where Every Flavour Finds Its Season</p>
+      <div class="hero-buttons">
+        <a href="#menu" class="btn-pill btn-gold">Explore Menu</a>
+        <a href="#contact" class="btn-pill btn-outline">Reserve a Table</a>
+      </div>
+    </div>
+    <div class="scroll-indicator">
+      <div class="line"></div>
+    </div>
+  </section>
 
-        <section id="highlights" class="fade-in">
-            <div class="container">
-                <h2 class="section-title">Food Highlights</h2>
-                <div class="food-grid">
-                    <article class="food-card">
-                        <img src="./Seasons%20Grand%20Irl%20Images/Food%20pics/drink.png" alt="Signature Drinks"
-                            loading="lazy" />
-                        <h3>Signature Drinks</h3>
-                    </article>
-                    <article class="food-card">
-                        <img src="./Seasons%20Grand%20Irl%20Images/Food%20pics/coffee.png" alt="Fresh Coffee"
-                            loading="lazy" />
-                        <h3>Fresh Coffee</h3>
-                    </article>
-                    <article class="food-card">
-                        <img src="./Seasons%20Grand%20Irl%20Images/Food%20pics/cake.png" alt="Artisan Desserts"
-                            loading="lazy" />
-                        <h3>Artisan Desserts</h3>
-                    </article>
-                    <article class="food-card">
-                        <img src="./Seasons%20Grand%20Irl%20Images/Food%20pics/coffee%20(2).png" alt="Cold Brews"
-                            loading="lazy" />
-                        <h3>Cold Brews</h3>
-                    </article>
-                </div>
-            </div>
-        </section>
-
-        <section id="menu" class="fade-in">
-            <div class="container">
-                <h2 class="section-title">Our Menu</h2>
-
-                <div class="menu-tabs" role="tablist" aria-label="Menu Categories">
-                    <button class="tab-btn active" role="tab" aria-selected="true" data-tab="biryani">Biryani</button>
-                    <button class="tab-btn" role="tab" aria-selected="false" data-tab="kebab">Kebab</button>
-                    <button class="tab-btn" role="tab" aria-selected="false" data-tab="starters">Starters</button>
-                    <button class="tab-btn" role="tab" aria-selected="false" data-tab="pasta">Pasta &amp;
-                        Noodles</button>
-                    <button class="tab-btn" role="tab" aria-selected="false" data-tab="curry">Curry</button>
-                    <button class="tab-btn" role="tab" aria-selected="false" data-tab="sides">Sides</button>
-                    <button class="tab-btn" role="tab" aria-selected="false" data-tab="desserts">Desserts &amp;
-                        Bakery</button>
-                </div>
-
-                <div class="tab-panels">
-                    <div class="tab-panel active" data-panel="biryani">
-                        <div class="menu-placeholder" tabindex="0">Biryani Menu - Image Coming Soon</div>
-                    </div>
-                    <div class="tab-panel" data-panel="kebab">
-                        <div class="menu-placeholder" tabindex="0">Kebab Menu - Image Coming Soon</div>
-                    </div>
-                    <div class="tab-panel" data-panel="starters">
-                        <div class="menu-placeholder" tabindex="0">Starters Menu - Image Coming Soon</div>
-                    </div>
-                    <div class="tab-panel" data-panel="pasta">
-                        <div class="menu-placeholder" tabindex="0">Pasta &amp; Noodles Menu - Image Coming Soon</div>
-                    </div>
-                    <div class="tab-panel" data-panel="curry">
-                        <div class="menu-placeholder" tabindex="0">Curry Menu - Image Coming Soon</div>
-                    </div>
-                    <div class="tab-panel" data-panel="sides">
-                        <div class="menu-placeholder" tabindex="0">Sides Menu - Image Coming Soon</div>
-                    </div>
-                    <div class="tab-panel" data-panel="desserts">
-                        <div class="menu-placeholder" tabindex="0">Desserts &amp; Bakery Menu - Image Coming Soon</div>
-                    </div>
-                </div>
-
-                <p class="menu-note">Menu subject to availability. Freshly prepared daily.</p>
-            </div>
-        </section>
-
-        <section id="reviews" class="fade-in">
-            <div class="container">
-                <h2 class="section-title">What Our Guests Say</h2>
-                <p class="section-subtitle">90% of guests recommend SEASONS Grand</p>
-
-                <div class="review-mask">
-                    <div class="review-track" aria-label="Guest reviews carousel">
-                        <article class="review-card">
-                            <p class="stars">★★★★★</p>
-                            <p class="review-text">"The food looked beautiful and tasted even better. The rice was
-                                perfectly
-                                cooked, the grilled chicken was juicy and flavorful. The environment was calm and
-                                comfortable. Seasons Grand is definitely worth trying."</p>
-                            <p class="review-author">- Abdul Jabbar Al Nahid, Local Guide</p>
-                        </article>
-
-                        <article class="review-card">
-                            <p class="stars">★★★★★</p>
-                            <p class="review-text">"The service we received was truly exceptional. Manager Joy went
-                                above
-                                and beyond to accommodate our needs. We were a party of 12 visiting from the United
-                                Kingdom
-                                and every aspect of our experience was handled with great care and professionalism."</p>
-                            <p class="review-author">- Rashid Ali, Local Guide</p>
-                        </article>
-
-                        <article class="review-card">
-                            <p class="stars">★★★★★</p>
-                            <p class="review-text">"Excellent food and good service! The spicy chicken, fried rice, and
-                                sides were fantastic. The portions were generous and the flavors were incredible. The
-                                restaurant ambiance is also beautiful. Highly recommended!"</p>
-                            <p class="review-author">- Atikul Islam Romon, Local Guide</p>
-                        </article>
-
-                        <article class="review-card">
-                            <p class="stars">★★★★★</p>
-                            <p class="review-text">"A perfect place for hanging out with friends and family. The quality
-                                of
-                                drinks and desserts were superb. Very friendly staff and the ambience was peaceful and
-                                pleasant. Will surely visit again. Overall 5 out of 5!"</p>
-                            <p class="review-author">- Imran Chowdhury, Local Guide</p>
-                        </article>
-
-                        <article class="review-card" aria-hidden="true">
-                            <p class="stars">★★★★★</p>
-                            <p class="review-text">"The food looked beautiful and tasted even better. The rice was
-                                perfectly
-                                cooked, the grilled chicken was juicy and flavorful. The environment was calm and
-                                comfortable. Seasons Grand is definitely worth trying."</p>
-                            <p class="review-author">- Abdul Jabbar Al Nahid, Local Guide</p>
-                        </article>
-
-                        <article class="review-card" aria-hidden="true">
-                            <p class="stars">★★★★★</p>
-                            <p class="review-text">"The service we received was truly exceptional. Manager Joy went
-                                above
-                                and beyond to accommodate our needs. We were a party of 12 visiting from the United
-                                Kingdom
-                                and every aspect of our experience was handled with great care and professionalism."</p>
-                            <p class="review-author">- Rashid Ali, Local Guide</p>
-                        </article>
-
-                        <article class="review-card" aria-hidden="true">
-                            <p class="stars">★★★★★</p>
-                            <p class="review-text">"Excellent food and good service! The spicy chicken, fried rice, and
-                                sides were fantastic. The portions were generous and the flavors were incredible. The
-                                restaurant ambiance is also beautiful. Highly recommended!"</p>
-                            <p class="review-author">- Atikul Islam Romon, Local Guide</p>
-                        </article>
-
-                        <article class="review-card" aria-hidden="true">
-                            <p class="stars">★★★★★</p>
-                            <p class="review-text">"A perfect place for hanging out with friends and family. The quality
-                                of
-                                drinks and desserts were superb. Very friendly staff and the ambience was peaceful and
-                                pleasant. Will surely visit again. Overall 5 out of 5!"</p>
-                            <p class="review-author">- Imran Chowdhury, Local Guide</p>
-                        </article>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="contact" class="fade-in">
-            <div class="container">
-                <h2 class="section-title">Find Us</h2>
-
-                <div class="contact-grid">
-                    <div>
-                        <div class="info-wrap">
-                            <p class="info-card">📍 47/A Nayasarak, Mamun Villa, Sylhet, Bangladesh, 3100</p>
-                            <p class="info-card">📞 01799-309539</p>
-                            <p class="info-card">📱 WhatsApp: +880 1799-309539</p>
-                            <p class="info-card">✉️ seasonsgrand.bd@gmail.com</p>
-                            <p class="info-card">🕐 Open Now - Dine-in Available</p>
-                            <p class="info-card">💰 Price range: ৳400 - ৳2,000+ per person</p>
-                        </div>
-
-                        <div class="social-row" aria-label="Social links">
-                            <a class="social-btn" href="https://www.facebook.com/SeasonsGrand" target="_blank"
-                                rel="noopener noreferrer">Facebook</a>
-                            <a class="social-btn" href="https://www.instagram.com/seasons_grand" target="_blank"
-                                rel="noopener noreferrer">Instagram</a>
-                            <a class="social-btn" href="https://maps.app.goo.gl/BE2eG94gh14EM5mC8" target="_blank"
-                                rel="noopener noreferrer">Google Maps</a>
-                        </div>
-                    </div>
-
-                    <iframe class="map-frame"
-                        src="https://www.google.com/maps?q=47%2FA%20Nayasarak%2C%20Mamun%20Villa%2C%20Sylhet%2C%20Bangladesh&output=embed"
-                        loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen
-                        title="SEASONS Grand Location"></iframe>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <footer>
-        <div class="container">
-            <p class="footer-copy">© 2025 SEASONS Grand, Sylhet. All rights reserved.</p>
-            <div class="footer-icons" aria-hidden="true">
-                <span>◉</span>
-                <span>◆</span>
-                <span>◉</span>
-            </div>
-            <p class="footer-site">seasons-bd.com</p>
+  <!-- ========== ABOUT ========== -->
+  <section class="about" id="about">
+    <div class="container">
+      <div class="about-grid">
+        <div class="stats-stack reveal">
+          <div class="stat-card">
+            <div class="stat-number">45+</div>
+            <div class="stat-label">International Cuisines</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">5★</div>
+            <div class="stat-label">Average Guest Rating</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">2024</div>
+            <div class="stat-label">Established In</div>
+          </div>
         </div>
-    </footer>
+        <div class="about-text reveal">
+          <p class="label-caps" style="margin-bottom: 16px;">Our Story</p>
+          <h2>A Culinary Haven<br>in Sylhet</h2>
+          <p>SEASONS Grand is more than a restaurant — it's a destination where culinary artistry meets timeless hospitality. Nestled in the heart of Sylhet at Nayasarak, we bring together over 45 international cuisines under one roof, from aromatic Hyderabadi biryanis to rich Italian pastas and Continental masterpieces.</p>
+          <p>Every dish is crafted with precision, using the freshest ingredients and recipes refined across cultures. Our elegant dining space, warm service, and meticulously curated menu create an experience that lingers long after the last bite.</p>
+        </div>
+      </div>
+    </div>
+    <!-- Floating deco -->
+    <div class="deco-line-v" style="right: 10%; top: 20%;"></div>
+    <div class="deco-dots" style="left: 5%; bottom: 15%;"></div>
+  </section>
 
-    <script>
-        const hamburger = document.getElementById("hamburger");
-        const navLinks = document.getElementById("navLinks");
-        const navAnchors = navLinks.querySelectorAll("a");
-        const navbar = document.querySelector(".navbar");
-        const hero = document.getElementById("home");
+  <!-- ========== GALLERY ========== -->
+  <section class="gallery" id="gallery">
+    <div class="container">
+      <div class="gallery-label reveal">
+        <span class="label-caps">The Experience</span>
+      </div>
+      <div class="gallery-grid reveal" style="position: relative;">
+        <div class="gallery-item">
+          <img src="Seasons Grand Irl Images/Non food pics/1.png" alt="SEASONS Grand restaurant interior" loading="lazy">
+        </div>
+        <div class="gallery-item">
+          <img src="Seasons Grand Irl Images/Non food pics/2.png" alt="SEASONS Grand dining ambiance" loading="lazy">
+        </div>
+        <div class="gallery-item">
+          <img src="Seasons Grand Irl Images/Non food pics/3.png" alt="SEASONS Grand atmosphere" loading="lazy">
+        </div>
+        <span class="gallery-floating-text">Experience the Ambiance</span>
+      </div>
+    </div>
+  </section>
 
-        hamburger.addEventListener("click", () => {
-            const isOpen = navLinks.classList.toggle("open");
-            hamburger.setAttribute("aria-expanded", String(isOpen));
-        });
+  <!-- ========== FOOD HIGHLIGHTS ========== -->
+  <section class="highlights" id="highlights">
+    <div class="container">
+      <div class="highlights-header reveal">
+        <span class="label-caps">From Our Kitchen</span>
+        <h2>Crafted to Perfection</h2>
+      </div>
+      <div class="highlights-grid reveal">
+        <div class="highlight-card">
+          <img src="Seasons Grand Irl Images/Food pics/drink.png" alt="Signature Drinks" loading="lazy">
+          <div class="overlay"><span>Signature Drinks</span></div>
+        </div>
+        <div class="highlight-card">
+          <img src="Seasons Grand Irl Images/Food pics/coffee.png" alt="Fresh Coffee" loading="lazy">
+          <div class="overlay"><span>Fresh Coffee</span></div>
+        </div>
+        <div class="highlight-card">
+          <img src="Seasons Grand Irl Images/Food pics/cake.png" alt="Artisan Desserts" loading="lazy">
+          <div class="overlay"><span>Artisan Desserts</span></div>
+        </div>
+        <div class="highlight-card">
+          <img src="Seasons Grand Irl Images/Food pics/coffee (2).png" alt="Cold Brews" loading="lazy">
+          <div class="overlay"><span>Cold Brews</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-        navAnchors.forEach((anchor) => {
-            anchor.addEventListener("click", () => {
-                navLinks.classList.remove("open");
-                hamburger.setAttribute("aria-expanded", "false");
-            });
-        });
+  <!-- ========== MENU SECTION ========== -->
+  <section class="menu-section" id="menu">
+    <div class="container">
+      <div class="menu-header reveal">
+        <span class="label-caps">Taste the Extraordinary</span>
+        <h2>Our Menu</h2>
+      </div>
+      <div class="menu-tabs reveal" id="menuTabs">
+        <button class="menu-tab active" data-tab="biryani">Biryani</button>
+        <button class="menu-tab" data-tab="kebab">Kebab &amp; Tikka</button>
+        <button class="menu-tab" data-tab="starters">Starters</button>
+        <button class="menu-tab" data-tab="continental">Continental</button>
+        <button class="menu-tab" data-tab="pasta">Pasta</button>
+        <button class="menu-tab" data-tab="curry">Indian Curry</button>
+        <button class="menu-tab" data-tab="sides">Sides &amp; Fries</button>
+      </div>
 
-        const tabButtons = document.querySelectorAll(".tab-btn");
-        const tabPanels = document.querySelectorAll(".tab-panel");
+      <!-- Biryani -->
+      <div class="menu-grid active" id="tab-biryani">
+        <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">Kacchi Mutton Biryani (1:2)</div><div class="menu-item-desc">Traditional slow-cooked layers of rice and premium mutton</div></div><div class="menu-item-price">2pcs ৳720 / 4pcs ৳1120</div></div>
+        <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">Kacchi Mutton Biryani (1:1)</div><div class="menu-item-desc">Classic kacchi with balanced meat-to-rice ratio</div></div><div class="menu-item-price">1pc ৳380 / 2pcs ৳580</div></div>
+        <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">Kacchi Chicken Biryani</div><div class="menu-item-desc">Fragrant basmati with succulent chicken pieces</div></div><div class="menu-item-price">2pcs ৳480</div></div>
+        <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">Hyderabadi Dum Mutton Biryani</div><div class="menu-item-desc">Authentic Hyderabadi style, sealed and slow-cooked</div></div><div class="menu-item-price">৳550</div></div>
+        <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">Hyderabadi Dum Chicken Biryani</div><div class="menu-item-desc">Rich and aromatic dum-style chicken biryani</div></div><div class="menu-item-price">৳430</div></div>
+        <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">Mughlai Chicken Tikka Biryani</div><div class="menu-item-desc">Char-grilled tikka layered over spiced rice</div></div><div class="menu-item-price">৳430</div></div>
+        <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">Mughlai Paneer Tikka Biryani</div><div class="menu-item-desc">Vegetarian delight with tandoori paneer and saffron rice</div></div><div class="menu-item-price">৳430</div></div>
+      </div>
 
-        tabButtons.forEach((button) => {
-            button.addEventListener("click", () => {
-                const target = button.dataset.tab;
+      <!-- Kebab & Tikka -->
+      <div class="menu-grid" id="tab-kebab">
+        <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">Chicken Masala Tikka</div><div class="menu-item-desc">Smoky tandoor-grilled chicken in rich masala marinade</div></div><div class="menu-item-price">৳390</div></div>
+        <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">Chicken Achari Tikka</div><div class="menu-item-desc">Tangy pickle-spiced chicken from the tandoor</div></div><div class="menu-item-price">৳390</div></div>
+        <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">Chicken Hara Tikka</div><div class="menu-item-desc">Herb-infused green marinade grilled to perfection</div></div><div class="menu-item-price">৳390</div></div>
+        <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">Chicken Reshmi Tikka</div><div class="menu-item-desc">Silky smooth cream and cashew marinated chicken</div></div><div class="menu-item-price">৳390</div></div>
+        <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">Chicken Malai Tikka</div><div class="menu-item-desc">Creamy and mildly spiced with fresh malai</div></div><div class="menu-item-price">৳430</div></div>
+        <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">Paneer Tikka</div><div class="menu-item-desc">Cottage cheese cubes grilled with bell peppers</div></div><div class="menu-item-price">৳390</div></div>
+        <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">Chicken Seekh Kebab</div><div class="menu-item-desc">Hand-rolled spiced minced chicken on skewers</div></div><div class="menu-item-price">Single ৳420 / Double ৳800</div></div>
+        <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">Beef Seekh Kebab</div><div class="menu-item-desc">Premium minced beef with aromatic spices</div></div><div class="menu-item-price">Single ৳490 / Double ৳950</div></div>
+        <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">Tandoori Murgh</div><div class="menu-item-desc">Whole chicken marinated overnight, roasted in tandoor</div></div><div class="menu-item-price">Qtr ৳230 / Half ৳450 / Full ৳880</div></div>
+      </div>
 
-                tabButtons.forEach((btn) => {
-                    const active = btn === button;
-                    btn.classList.toggle("active", active);
-                    btn.setAttribute("aria-selected", String(active));
-                });
+      <!-- Starters -->
+      <div class="menu-grid" id="tab-starters">
+        <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">Mozzarella Sticks</div><div class="menu-item-desc">Crispy golden coating with stretchy mozzarella</div></div><div class="menu-item-price">6pcs ৳520 / 10pcs ৳865</div></div>
+        <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">Loaded Fries</div><div class="menu-item-desc">Topped with cheese, jalapeños, and signature sauce</div></div><div class="menu-item-price">৳540</div></div>
+        <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">Peri-Peri Chicken Wings</div><div class="menu-item-desc">Fiery peri-peri glazed and oven-roasted</div></div><div class="menu-item-price">5pcs ৳390 / 8pcs ৳590</div></div>
+        <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">Hot BBQ Chicken Wings</div><div class="menu-item-desc">Smoky barbecue with a spicy kick</div></div><div class="menu-item-price">5pcs ৳390 / 8pcs ৳590</div></div>
+        <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">Alabama Chicken Wings</div><div class="menu-item-desc">Tangy white sauce style, Southern-inspired</div></div><div class="menu-item-price">5pcs ৳420 / 8pcs ৳620</div></div>
+        <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">Honey-Garlic Chicken Wings</div><div class="menu-item-desc">Sweet honey glaze with roasted garlic</div></div><div class="menu-item-price">5pcs ৳390 / 8pcs ৳590</div></div>
+        <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">Teriyaki Chicken Wings</div><div class="menu-item-desc">Japanese-inspired sweet soy glaze</div></div><div class="menu-item-price">5pcs ৳390 / 8pcs ৳590</div></div>
+      </div>
 
-                tabPanels.forEach((panel) => {
-                    panel.classList.toggle("active", panel.dataset.panel === target);
-                });
-            });
-        });
+      <!-- Continental -->
+      <div class="menu-grid" id="tab-continental">
+        <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">Spanish Saffron Chicken</div><div class="menu-item-desc">Saffron-infused roast with Mediterranean herbs</div></div><div class="menu-item-price">Qtr ৳490 / Half ৳660</div></div>
+        <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">French Lemon Butter Garlic Chicken</div><div class="menu-item-desc">Classic French preparation with citrus butter sauce</div></div><div class="menu-item-price">Qtr ৳510 / Half ৳680</div></div>
+        <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">Genovese Pesto Chicken</div><div class="menu-item-desc">Fresh basil pesto over tender roasted chicken</div></div><div class="menu-item-price">Qtr ৳490 / Half ৳660</div></div>
+        <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">Portuguese Chicken Madeira</div><div class="menu-item-desc">Rich Madeira wine sauce with roasted chicken</div></div><div class="menu-item-price">Qtr ৳490 / Half ৳660</div></div>
+        <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">American Cream Cheese Chicken</div><div class="menu-item-desc">Stuffed with cream cheese, herbs, and spices</div></div><div class="menu-item-price">Qtr ৳510 / Half ৳680</div></div>
+      </div>
 
-        const menuPlaceholders = document.querySelectorAll(".menu-placeholder");
-        menuPlaceholders.forEach((box) => {
-            box.addEventListener("click", () => {
-                box.classList.toggle("zoomed");
-            });
+      <!-- Pasta -->
+      <div class="menu-grid" id="tab-pasta">
+        <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">Spaghetti Bolognese</div><div class="menu-item-desc">Slow-simmered meat ragù over al dente spaghetti</div></div><div class="menu-item-price">৳610</div></div>
+        <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">Spaghetti with Meatballs</div><div class="menu-item-desc">Handmade meatballs in rich marinara sauce</div></div><div class="menu-item-price">৳580</div></div>
+        <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">Spaghetti Pesto Genovese</div><div class="menu-item-desc">Classic Genovese basil pesto with pine nuts</div></div><div class="menu-item-price">৳560</div></div>
+        <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">Creamy Spaghetti Pesto</div><div class="menu-item-desc">Pesto elevated with a velvety cream finish</div></div><div class="menu-item-price">৳620</div></div>
+        <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">Spaghetti Carbonara</div><div class="menu-item-desc">Traditional egg and pecorino with crispy pancetta</div></div><div class="menu-item-price">৳560</div></div>
+        <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">Creamy Spaghetti Carbonara</div><div class="menu-item-desc">Our signature rich, creamy take on the classic</div></div><div class="menu-item-price">৳620</div></div>
+        <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">Creamy Seafood Spaghetti</div><div class="menu-item-desc">Fresh seafood medley in garlic cream sauce</div></div><div class="menu-item-price">৳680</div></div>
+      </div>
 
-            box.addEventListener("keydown", (event) => {
-                if (event.key === "Enter" || event.key === " ") {
-                    event.preventDefault();
-                    box.classList.toggle("zoomed");
-                }
-            });
-        });
+      <!-- Indian Curry -->
+      <div class="menu-grid" id="tab-curry">
+        <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">Shahi Paneer Masala</div><div class="menu-item-desc">Royal creamy gravy with soft paneer cubes</div></div><div class="menu-item-price">৳600</div></div>
+        <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">Paneer Tikka Masala</div><div class="menu-item-desc">Grilled paneer in smoky tikka gravy</div></div><div class="menu-item-price">৳580</div></div>
+        <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">Matar Paneer Masala</div><div class="menu-item-desc">Green peas and paneer in spiced tomato gravy</div></div><div class="menu-item-price">৳580</div></div>
+        <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">Palak Paneer</div><div class="menu-item-desc">Creamy spinach purée with soft paneer</div></div><div class="menu-item-price">৳560</div></div>
+        <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">Butter Paneer Masala</div><div class="menu-item-desc">Rich buttery tomato gravy, mild and luscious</div></div><div class="menu-item-price">৳600</div></div>
+        <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">Daal Makhni</div><div class="menu-item-desc">Slow-cooked black lentils in butter and cream</div></div><div class="menu-item-price">৳480</div></div>
+        <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">Daal Tadka</div><div class="menu-item-desc">Yellow lentils tempered with cumin and garlic</div></div><div class="menu-item-price">৳450</div></div>
+      </div>
 
-        const fadeItems = document.querySelectorAll(".fade-in");
-        const observer = new IntersectionObserver(
-            (entries) => {
-                entries.forEach((entry) => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add("visible");
-                        observer.unobserve(entry.target);
-                    }
-                });
-            },
-            { threshold: 0.16 }
-        );
+      <!-- Sides & Fries -->
+      <div class="menu-grid" id="tab-sides">
+        <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">Roasted Potatoes</div><div class="menu-item-desc">Herb-seasoned and oven-roasted golden</div></div><div class="menu-item-price">৳270</div></div>
+        <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">Sesame Roasted Green Beans</div><div class="menu-item-desc">Crisp beans with toasted sesame finish</div></div><div class="menu-item-price">৳270</div></div>
+        <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">Sautéed Veggies</div><div class="menu-item-desc">Seasonal vegetables, lightly seasoned</div></div><div class="menu-item-price">৳300</div></div>
+        <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">Grilled Veggies</div><div class="menu-item-desc">Chargrilled mixed vegetables with olive oil</div></div><div class="menu-item-price">৳320</div></div>
+        <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">Garlic Sautéed Veggies</div><div class="menu-item-desc">Fragrant garlic butter tossed vegetables</div></div><div class="menu-item-price">৳320</div></div>
+        <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">Stir-Fried Veggies</div><div class="menu-item-desc">Wok-tossed vegetables with Asian seasoning</div></div><div class="menu-item-price">৳420</div></div>
+        <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">Regular Coleslaw</div><div class="menu-item-desc">Creamy classic coleslaw, fresh and crunchy</div></div><div class="menu-item-price">৳330</div></div>
+        <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">Regular Potato Wedges</div><div class="menu-item-desc">Thick-cut golden fried wedges</div></div><div class="menu-item-price">৳230</div></div>
+        <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">Masala Potato Wedges</div><div class="menu-item-desc">Spiced with aromatic masala blend</div></div><div class="menu-item-price">৳290</div></div>
+        <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">Panko Potato Wedges</div><div class="menu-item-desc">Extra crispy Japanese panko breadcrumb coating</div></div><div class="menu-item-price">৳340</div></div>
+        <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">Hot BBQ Potato Wedges</div><div class="menu-item-desc">Smoky BBQ seasoning with a spicy finish</div></div><div class="menu-item-price">৳350</div></div>
+        <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">Salt &amp; Pepper Wedges</div><div class="menu-item-desc">Simply seasoned, perfectly golden</div></div><div class="menu-item-price">৳250</div></div>
+        <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">Garlic Potato Wedges</div><div class="menu-item-desc">Roasted garlic infused with herbs</div></div><div class="menu-item-price">৳270</div></div>
+        <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">Peri-Peri Potato Wedges</div><div class="menu-item-desc">Fiery peri-peri spice dusted wedges</div></div><div class="menu-item-price">৳310</div></div>
+      </div>
+    </div>
+  </section>
 
-        fadeItems.forEach((item) => observer.observe(item));
+  <!-- ========== REVIEWS ========== -->
+  <section class="reviews" id="reviews">
+    <div class="container">
+      <div class="reviews-header reveal">
+        <span class="label-caps">Testimonials</span>
+        <h2>What Our Guests Say</h2>
+        <p>90% of guests recommend SEASONS Grand · Google Reviews</p>
+      </div>
+    </div>
+    <div class="reviews-track-wrapper">
+      <div class="reviews-track" id="reviewsTrack">
+        <!-- Card 1 -->
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"The food looked beautiful and tasted even better. The rice was perfectly cooked, the grilled chicken was juicy and flavorful. The environment was calm and comfortable. Definitely worth trying."</p>
+          <div class="review-author">Abdul Jabbar Al Nahid</div>
+          <div class="review-badge">Local Guide</div>
+        </div>
+        <!-- Card 2 -->
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"The service was truly exceptional. Manager Joy went above and beyond. We were a party of 12 from the United Kingdom and every aspect was handled with great care and professionalism."</p>
+          <div class="review-author">Rashid Ali</div>
+          <div class="review-badge">Local Guide</div>
+        </div>
+        <!-- Card 3 -->
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"Excellent food and good service! The spicy chicken, fried rice, and sides were fantastic. Generous portions and incredible flavors. The ambiance is also beautiful. Highly recommended!"</p>
+          <div class="review-author">Atikul Islam Romon</div>
+          <div class="review-badge">Local Guide</div>
+        </div>
+        <!-- Card 4 -->
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"A perfect place for friends and family. Drinks and desserts were superb. Very friendly staff and peaceful ambience. Will surely visit again. Overall 5 out of 5!"</p>
+          <div class="review-author">Imran Chowdhury</div>
+          <div class="review-badge">Local Guide</div>
+        </div>
+        <!-- Duplicated for seamless loop -->
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"The food looked beautiful and tasted even better. The rice was perfectly cooked, the grilled chicken was juicy and flavorful. The environment was calm and comfortable. Definitely worth trying."</p>
+          <div class="review-author">Abdul Jabbar Al Nahid</div>
+          <div class="review-badge">Local Guide</div>
+        </div>
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"The service was truly exceptional. Manager Joy went above and beyond. We were a party of 12 from the United Kingdom and every aspect was handled with great care and professionalism."</p>
+          <div class="review-author">Rashid Ali</div>
+          <div class="review-badge">Local Guide</div>
+        </div>
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"Excellent food and good service! The spicy chicken, fried rice, and sides were fantastic. Generous portions and incredible flavors. The ambiance is also beautiful. Highly recommended!"</p>
+          <div class="review-author">Atikul Islam Romon</div>
+          <div class="review-badge">Local Guide</div>
+        </div>
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"A perfect place for friends and family. Drinks and desserts were superb. Very friendly staff and peaceful ambience. Will surely visit again. Overall 5 out of 5!"</p>
+          <div class="review-author">Imran Chowdhury</div>
+          <div class="review-badge">Local Guide</div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-        const updateHeroParallax = () => {
-            const y = window.scrollY;
-            document.documentElement.style.setProperty("--hero-parallax", `${Math.min(y * 0.18, 70)}px`);
-            const scrolledPastHero = y > hero.offsetHeight - Number.parseInt(getComputedStyle(document.documentElement).getPropertyValue("--nav-h"), 10);
-            navbar.classList.toggle("scrolled", scrolledPastHero);
-        };
+  <!-- ========== CONTACT ========== -->
+  <section class="contact" id="contact">
+    <div class="container">
+      <div class="contact-header reveal">
+        <span class="label-caps">Get In Touch</span>
+        <h2>Find Us</h2>
+      </div>
+      <div class="contact-grid">
+        <div class="contact-info reveal">
+          <div class="contact-info-list">
+            <div class="contact-item">
+              <span class="contact-item-icon">📍</span>
+              <div class="contact-item-text">47/A Nayasarak, Mamun Villa,<br>Sylhet, Bangladesh, 3100</div>
+            </div>
+            <div class="contact-item">
+              <span class="contact-item-icon">📞</span>
+              <div class="contact-item-text"><a href="tel:+8801799309539">01799-309539</a></div>
+            </div>
+            <div class="contact-item">
+              <span class="contact-item-icon">📱</span>
+              <div class="contact-item-text">WhatsApp: <a href="https://wa.me/8801799309539" target="_blank">+880 1799-309539</a></div>
+            </div>
+            <div class="contact-item">
+              <span class="contact-item-icon">✉️</span>
+              <div class="contact-item-text"><a href="mailto:seasonsgrand.bd@gmail.com">seasonsgrand.bd@gmail.com</a></div>
+            </div>
+            <div class="contact-item">
+              <span class="contact-item-icon">🕐</span>
+              <div class="contact-item-text">Open Now — Dine-in Available</div>
+            </div>
+            <div class="contact-item">
+              <span class="contact-item-icon">💰</span>
+              <div class="contact-item-text">Price range: ৳400 – ৳2,000+ per person</div>
+            </div>
+          </div>
+          <div class="social-buttons">
+            <a href="https://www.facebook.com/SeasonsGrand" target="_blank" class="social-btn">
+              <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+              Facebook
+            </a>
+            <a href="https://www.instagram.com/seasons_grand" target="_blank" class="social-btn">
+              <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+              Instagram
+            </a>
+            <a href="https://maps.app.goo.gl/BE2eG94gh14EM5mC8" target="_blank" class="social-btn">
+              <svg viewBox="0 0 24 24"><path d="M12 0C7.802 0 4 3.403 4 7.602 4 11.8 7.469 16.812 12 24c4.531-7.188 8-12.2 8-16.398C20 3.403 16.199 0 12 0zm0 11a3 3 0 110-6 3 3 0 010 6z"/></svg>
+              Google Maps
+            </a>
+          </div>
+        </div>
+        <div class="contact-map reveal">
+          <iframe 
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3618.947!2d91.8687!3d24.8949!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x375054d3d4e6b1b%3A0x1!2s47%2FA%20Nayasarak%2C%20Mamun%20Villa%2C%20Sylhet%2C%20Bangladesh!5e0!3m2!1sen!2sbd!4v1700000000000!5m2!1sen!2sbd" 
+            width="100%" 
+            height="420" 
+            style="border:0;" 
+            allowfullscreen="" 
+            loading="lazy" 
+            referrerpolicy="no-referrer-when-downgrade"
+            title="SEASONS Grand Location">
+          </iframe>
+        </div>
+      </div>
+    </div>
+  </section>
 
-        const sectionMap = {
-            "#home": document.getElementById("home"),
-            "#menu": document.getElementById("menu"),
-            "#contact": document.getElementById("contact")
-        };
+  <!-- ========== FOOTER ========== -->
+  <footer class="footer">
+    <p class="footer-copy">© 2025 SEASONS Grand, Sylhet · All rights reserved.</p>
+    <div class="footer-socials">
+      <a href="https://www.facebook.com/SeasonsGrand" target="_blank" aria-label="Facebook">
+        <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+      </a>
+      <a href="https://www.instagram.com/seasons_grand" target="_blank" aria-label="Instagram">
+        <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+      </a>
+      <a href="https://maps.app.goo.gl/BE2eG94gh14EM5mC8" target="_blank" aria-label="Google Maps">
+        <svg viewBox="0 0 24 24"><path d="M12 0C7.802 0 4 3.403 4 7.602 4 11.8 7.469 16.812 12 24c4.531-7.188 8-12.2 8-16.398C20 3.403 16.199 0 12 0zm0 11a3 3 0 110-6 3 3 0 010 6z"/></svg>
+      </a>
+    </div>
+    <a href="#" class="footer-site">seasons-bd.com</a>
+  </footer>
 
-        const setActiveLink = () => {
-            const scrollPos = window.scrollY + window.innerHeight * 0.3;
-            let activeId = "#home";
+  <script>
+    // ========== NAVBAR SCROLL ==========
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 80) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
 
-            Object.entries(sectionMap).forEach(([hash, section]) => {
-                if (scrollPos >= section.offsetTop) {
-                    activeId = hash;
-                }
-            });
+    // ========== MOBILE MENU ==========
+    function toggleMobileMenu() {
+      const menu = document.getElementById('mobileMenu');
+      const hamburger = document.getElementById('hamburger');
+      menu.classList.toggle('open');
+      hamburger.classList.toggle('active');
+      document.body.style.overflow = menu.classList.contains('open') ? 'hidden' : '';
+    }
+    function closeMobileMenu() {
+      const menu = document.getElementById('mobileMenu');
+      const hamburger = document.getElementById('hamburger');
+      menu.classList.remove('open');
+      hamburger.classList.remove('active');
+      document.body.style.overflow = '';
+    }
 
-            navAnchors.forEach((link) => {
-                link.classList.toggle("active", link.getAttribute("href") === activeId);
-            });
-        };
+    // ========== MENU TABS ==========
+    const tabs = document.querySelectorAll('.menu-tab');
+    const grids = document.querySelectorAll('.menu-grid');
 
-        window.addEventListener("scroll", () => {
-            updateHeroParallax();
-            setActiveLink();
-        }, { passive: true });
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        tabs.forEach(t => t.classList.remove('active'));
+        grids.forEach(g => g.classList.remove('active'));
+        tab.classList.add('active');
+        document.getElementById('tab-' + tab.dataset.tab).classList.add('active');
+      });
+    });
 
-        updateHeroParallax();
-        setActiveLink();
-    </script>
+    // ========== INTERSECTION OBSERVER (Reveal on scroll) ==========
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          // Stagger children
+          const children = entry.target.querySelectorAll('.stat-card, .highlight-card, .contact-item, .menu-item');
+          children.forEach((child, i) => {
+            child.style.opacity = '0';
+            child.style.transform = 'translateY(20px)';
+            child.style.transition = `opacity 0.5s ${i * 0.1}s, transform 0.5s ${i * 0.1}s`;
+            setTimeout(() => {
+              child.style.opacity = '1';
+              child.style.transform = 'translateY(0)';
+            }, 50);
+          });
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // ========== SMOOTH SCROLL FOR NAV LINKS ==========
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+  </script>
+
 </body>
-
 </html>
