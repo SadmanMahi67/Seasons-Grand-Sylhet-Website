@@ -59,16 +59,20 @@
       padding: 0 40px;
     }
 
-    /* ========== REVEAL ANIMATIONS ========== */
+    /* ========== AOS-STYLE REVEAL ANIMATIONS ========== */
     .reveal {
       opacity: 0;
-      transform: translateY(40px);
-      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+      transform: translateY(50px);
+      transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
     }
     .reveal.visible {
       opacity: 1;
       transform: translateY(0);
     }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
 
     /* ========== NAVBAR ========== */
     .navbar {
@@ -245,6 +249,14 @@
       text-transform: uppercase;
       margin-top: 4px;
     }
+    .hero-subtitle {
+      font-family: 'Inter', sans-serif;
+      font-weight: 400;
+      font-size: 0.8rem;
+      color: #888880;
+      letter-spacing: 0.15em;
+      margin-top: 8px;
+    }
     .hero-line {
       width: 80px;
       height: 1px;
@@ -263,6 +275,8 @@
       gap: 16px;
       flex-wrap: wrap;
     }
+
+    /* ========== BUTTONS ========== */
     .btn-pill {
       display: inline-block;
       padding: 14px 36px;
@@ -272,25 +286,32 @@
       font-size: 0.72rem;
       letter-spacing: 0.12em;
       text-transform: uppercase;
-      transition: all 0.35s ease;
+      transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      position: relative;
+      overflow: hidden;
     }
     .btn-gold {
       background: #c9a84c;
       color: #0d0d0d;
+      border: 2px solid #c9a84c;
     }
     .btn-gold:hover {
       background: #e8c96d;
+      border-color: #e8c96d;
       transform: translateY(-2px);
       box-shadow: 0 8px 30px rgba(201,168,76,0.25);
     }
     .btn-outline {
-      border: 1px solid rgba(201,168,76,0.5);
+      border: 2px solid rgba(201,168,76,0.6);
       color: #c9a84c;
+      background: transparent;
     }
     .btn-outline:hover {
-      background: rgba(201,168,76,0.1);
+      background: #c9a84c;
+      color: #0d0d0d;
       border-color: #c9a84c;
       transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(201,168,76,0.2);
     }
 
     /* Scroll indicator */
@@ -327,7 +348,7 @@
       100% { top: 50px; opacity: 0; }
     }
 
-    /* ========== ABOUT SECTION ========== */
+    /* ========== ABOUT SECTION (combined with Our Story) ========== */
     .about {
       position: relative;
       padding: 140px 0 120px;
@@ -356,6 +377,19 @@
       font-size: 3.2rem;
       color: #c9a84c;
       line-height: 1;
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+    }
+    .stat-stars {
+      display: inline-flex;
+      gap: 2px;
+      font-size: 1.2rem;
+      color: #c9a84c;
+      vertical-align: middle;
+    }
+    .stat-stars .star-empty {
+      color: #444;
     }
     .stat-label {
       font-family: 'Inter', sans-serif;
@@ -483,7 +517,7 @@
       overflow: hidden;
       height: 400px;
       cursor: pointer;
-      border: 1px solid transparent;
+      border: 2px solid transparent;
       transition: border-color 0.4s;
     }
     .highlight-card:hover { border-color: #c9a84c; }
@@ -552,14 +586,15 @@
       letter-spacing: 0.1em;
       text-transform: uppercase;
       color: #888880;
-      border: 1px solid rgba(201,168,76,0.2);
+      border: 2px solid rgba(201,168,76,0.2);
       background: transparent;
-      transition: all 0.3s;
+      transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
       cursor: pointer;
     }
     .menu-tab:hover {
       color: #c9a84c;
       border-color: rgba(201,168,76,0.5);
+      background: rgba(201,168,76,0.05);
     }
     .menu-tab.active {
       background: #c9a84c;
@@ -575,10 +610,6 @@
     .menu-item {
       padding: 24px 28px;
       border-bottom: 1px solid rgba(201,168,76,0.12);
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 16px;
       transition: background 0.3s;
       cursor: default;
     }
@@ -586,27 +617,23 @@
       background: rgba(201,168,76,0.03);
       box-shadow: inset 0 0 30px rgba(201,168,76,0.03);
     }
-    .menu-item-info { flex: 1; }
     .menu-item-name {
       font-family: 'Playfair Display', serif;
       font-weight: 600;
-      font-size: 1rem;
+      font-size: 1.05rem;
       color: #c9a84c;
-      margin-bottom: 4px;
+      margin-bottom: 6px;
     }
     .menu-item-desc {
       font-family: 'Inter', sans-serif;
       font-weight: 300;
-      font-size: 0.8rem;
+      font-size: 0.82rem;
       color: #888880;
+      line-height: 1.5;
     }
-    .menu-item-price {
-      font-family: 'Inter', sans-serif;
-      font-weight: 600;
-      font-size: 0.85rem;
-      color: #c9a84c;
-      white-space: nowrap;
-      text-align: right;
+    .menu-download {
+      text-align: center;
+      margin-top: 56px;
     }
 
     /* ========== REVIEWS SECTION ========== */
@@ -755,14 +782,14 @@
       gap: 8px;
       padding: 12px 24px;
       border-radius: 50px;
-      border: 1px solid rgba(201,168,76,0.4);
+      border: 2px solid rgba(201,168,76,0.4);
       color: #c9a84c;
       font-family: 'Inter', sans-serif;
       font-weight: 600;
       font-size: 0.72rem;
       letter-spacing: 0.1em;
       text-transform: uppercase;
-      transition: all 0.3s;
+      transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
     .social-btn:hover {
       background: #c9a84c;
@@ -796,6 +823,12 @@
       padding: 40px 0 32px;
       border-top: 1px solid rgba(201,168,76,0.2);
       text-align: center;
+    }
+    .footer-address {
+      font-size: 0.78rem;
+      color: #888880;
+      margin-bottom: 12px;
+      letter-spacing: 0.03em;
     }
     .footer-copy {
       font-size: 0.78rem;
@@ -915,14 +948,15 @@
     <div class="hero-bg"></div>
     <div class="hero-overlay"></div>
     <div class="hero-content">
-      <p class="hero-est">Est. Sylhet, Bangladesh</p>
+      <p class="hero-est">Est. 2020</p>
       <h1 class="hero-title">SEASONS</h1>
       <p class="hero-grand">GRAND</p>
+      <p class="hero-subtitle">Nayasarak, Sylhet</p>
       <div class="hero-line"></div>
       <p class="hero-tagline">Where Every Flavour Finds Its Season</p>
       <div class="hero-buttons">
         <a href="#menu" class="btn-pill btn-gold">Explore Menu</a>
-        <a href="#contact" class="btn-pill btn-outline">Reserve a Table</a>
+        <a href="https://wa.me/8801799309539?text=Hello%2C%20I%20would%20like%20to%20reserve%20a%20table%20at%20SEASONS%20Grand." target="_blank" class="btn-pill btn-outline">Reserve a Table</a>
       </div>
     </div>
     <div class="scroll-indicator">
@@ -930,7 +964,7 @@
     </div>
   </section>
 
-  <!-- ========== ABOUT ========== -->
+  <!-- ========== ABOUT (combined with Our Story) ========== -->
   <section class="about" id="about">
     <div class="container">
       <div class="about-grid">
@@ -940,15 +974,20 @@
             <div class="stat-label">International Cuisines</div>
           </div>
           <div class="stat-card">
-            <div class="stat-number">5★</div>
+            <div class="stat-number">
+              4.0<span style="font-size:1.4rem; color:#888880; font-family:'Inter',sans-serif; font-weight:300;">/5</span>
+            </div>
+            <div class="stat-stars">
+              <span>★</span><span>★</span><span>★</span><span>★</span><span class="star-empty">★</span>
+            </div>
             <div class="stat-label">Average Guest Rating</div>
           </div>
           <div class="stat-card">
-            <div class="stat-number">2024</div>
+            <div class="stat-number">2020</div>
             <div class="stat-label">Established In</div>
           </div>
         </div>
-        <div class="about-text reveal">
+        <div class="about-text reveal reveal-delay-2">
           <p class="label-caps" style="margin-bottom: 16px;">Our Story</p>
           <h2>A Culinary Haven<br>in Sylhet</h2>
           <p>SEASONS Grand is more than a restaurant — it's a destination where culinary artistry meets timeless hospitality. Nestled in the heart of Sylhet at Nayasarak, we bring together over 45 international cuisines under one roof, from aromatic Hyderabadi biryanis to rich Italian pastas and Continental masterpieces.</p>
@@ -967,7 +1006,7 @@
       <div class="gallery-label reveal">
         <span class="label-caps">The Experience</span>
       </div>
-      <div class="gallery-grid reveal" style="position: relative;">
+      <div class="gallery-grid reveal reveal-delay-1" style="position: relative;">
         <div class="gallery-item">
           <img src="Seasons Grand Irl Images/Non food pics/1.png" alt="SEASONS Grand restaurant interior" loading="lazy">
         </div>
@@ -989,7 +1028,7 @@
         <span class="label-caps">From Our Kitchen</span>
         <h2>Crafted to Perfection</h2>
       </div>
-      <div class="highlights-grid reveal">
+      <div class="highlights-grid reveal reveal-delay-1">
         <div class="highlight-card">
           <img src="Seasons Grand Irl Images/Food pics/drink.png" alt="Signature Drinks" loading="lazy">
           <div class="overlay"><span>Signature Drinks</span></div>
@@ -1017,7 +1056,7 @@
         <span class="label-caps">Taste the Extraordinary</span>
         <h2>Our Menu</h2>
       </div>
-      <div class="menu-tabs reveal" id="menuTabs">
+      <div class="menu-tabs reveal reveal-delay-1" id="menuTabs">
         <button class="menu-tab active" data-tab="biryani">Biryani</button>
         <button class="menu-tab" data-tab="kebab">Kebab &amp; Tikka</button>
         <button class="menu-tab" data-tab="starters">Starters</button>
@@ -1029,86 +1068,94 @@
 
       <!-- Biryani -->
       <div class="menu-grid active" id="tab-biryani">
-        <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">Kacchi Mutton Biryani (1:2)</div><div class="menu-item-desc">Traditional slow-cooked layers of rice and premium mutton</div></div><div class="menu-item-price">2pcs ৳720 / 4pcs ৳1120</div></div>
-        <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">Kacchi Mutton Biryani (1:1)</div><div class="menu-item-desc">Classic kacchi with balanced meat-to-rice ratio</div></div><div class="menu-item-price">1pc ৳380 / 2pcs ৳580</div></div>
-        <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">Kacchi Chicken Biryani</div><div class="menu-item-desc">Fragrant basmati with succulent chicken pieces</div></div><div class="menu-item-price">2pcs ৳480</div></div>
-        <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">Hyderabadi Dum Mutton Biryani</div><div class="menu-item-desc">Authentic Hyderabadi style, sealed and slow-cooked</div></div><div class="menu-item-price">৳550</div></div>
-        <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">Hyderabadi Dum Chicken Biryani</div><div class="menu-item-desc">Rich and aromatic dum-style chicken biryani</div></div><div class="menu-item-price">৳430</div></div>
-        <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">Mughlai Chicken Tikka Biryani</div><div class="menu-item-desc">Char-grilled tikka layered over spiced rice</div></div><div class="menu-item-price">৳430</div></div>
-        <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">Mughlai Paneer Tikka Biryani</div><div class="menu-item-desc">Vegetarian delight with tandoori paneer and saffron rice</div></div><div class="menu-item-price">৳430</div></div>
+        <div class="menu-item"><div class="menu-item-name">Kacchi Mutton Biryani (1:2)</div><div class="menu-item-desc">Traditional slow-cooked layers of rice and premium mutton</div></div>
+        <div class="menu-item"><div class="menu-item-name">Kacchi Mutton Biryani (1:1)</div><div class="menu-item-desc">Classic kacchi with balanced meat-to-rice ratio</div></div>
+        <div class="menu-item"><div class="menu-item-name">Kacchi Chicken Biryani</div><div class="menu-item-desc">Fragrant basmati with succulent chicken pieces</div></div>
+        <div class="menu-item"><div class="menu-item-name">Hyderabadi Dum Mutton Biryani</div><div class="menu-item-desc">Authentic Hyderabadi style, sealed and slow-cooked</div></div>
+        <div class="menu-item"><div class="menu-item-name">Hyderabadi Dum Chicken Biryani</div><div class="menu-item-desc">Rich and aromatic dum-style chicken biryani</div></div>
+        <div class="menu-item"><div class="menu-item-name">Mughlai Chicken Tikka Biryani</div><div class="menu-item-desc">Char-grilled tikka layered over spiced rice</div></div>
+        <div class="menu-item"><div class="menu-item-name">Mughlai Paneer Tikka Biryani</div><div class="menu-item-desc">Vegetarian delight with tandoori paneer and saffron rice</div></div>
       </div>
 
       <!-- Kebab & Tikka -->
       <div class="menu-grid" id="tab-kebab">
-        <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">Chicken Masala Tikka</div><div class="menu-item-desc">Smoky tandoor-grilled chicken in rich masala marinade</div></div><div class="menu-item-price">৳390</div></div>
-        <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">Chicken Achari Tikka</div><div class="menu-item-desc">Tangy pickle-spiced chicken from the tandoor</div></div><div class="menu-item-price">৳390</div></div>
-        <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">Chicken Hara Tikka</div><div class="menu-item-desc">Herb-infused green marinade grilled to perfection</div></div><div class="menu-item-price">৳390</div></div>
-        <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">Chicken Reshmi Tikka</div><div class="menu-item-desc">Silky smooth cream and cashew marinated chicken</div></div><div class="menu-item-price">৳390</div></div>
-        <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">Chicken Malai Tikka</div><div class="menu-item-desc">Creamy and mildly spiced with fresh malai</div></div><div class="menu-item-price">৳430</div></div>
-        <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">Paneer Tikka</div><div class="menu-item-desc">Cottage cheese cubes grilled with bell peppers</div></div><div class="menu-item-price">৳390</div></div>
-        <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">Chicken Seekh Kebab</div><div class="menu-item-desc">Hand-rolled spiced minced chicken on skewers</div></div><div class="menu-item-price">Single ৳420 / Double ৳800</div></div>
-        <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">Beef Seekh Kebab</div><div class="menu-item-desc">Premium minced beef with aromatic spices</div></div><div class="menu-item-price">Single ৳490 / Double ৳950</div></div>
-        <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">Tandoori Murgh</div><div class="menu-item-desc">Whole chicken marinated overnight, roasted in tandoor</div></div><div class="menu-item-price">Qtr ৳230 / Half ৳450 / Full ৳880</div></div>
+        <div class="menu-item"><div class="menu-item-name">Chicken Masala Tikka</div><div class="menu-item-desc">Smoky tandoor-grilled chicken in rich masala marinade</div></div>
+        <div class="menu-item"><div class="menu-item-name">Chicken Achari Tikka</div><div class="menu-item-desc">Tangy pickle-spiced chicken from the tandoor</div></div>
+        <div class="menu-item"><div class="menu-item-name">Chicken Hara Tikka</div><div class="menu-item-desc">Herb-infused green marinade grilled to perfection</div></div>
+        <div class="menu-item"><div class="menu-item-name">Chicken Reshmi Tikka</div><div class="menu-item-desc">Silky smooth cream and cashew marinated chicken</div></div>
+        <div class="menu-item"><div class="menu-item-name">Chicken Malai Tikka</div><div class="menu-item-desc">Creamy and mildly spiced with fresh malai</div></div>
+        <div class="menu-item"><div class="menu-item-name">Paneer Tikka</div><div class="menu-item-desc">Cottage cheese cubes grilled with bell peppers</div></div>
+        <div class="menu-item"><div class="menu-item-name">Chicken Seekh Kebab</div><div class="menu-item-desc">Hand-rolled spiced minced chicken on skewers</div></div>
+        <div class="menu-item"><div class="menu-item-name">Beef Seekh Kebab</div><div class="menu-item-desc">Premium minced beef with aromatic spices</div></div>
+        <div class="menu-item"><div class="menu-item-name">Tandoori Murgh</div><div class="menu-item-desc">Whole chicken marinated overnight, roasted in tandoor</div></div>
       </div>
 
       <!-- Starters -->
       <div class="menu-grid" id="tab-starters">
-        <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">Mozzarella Sticks</div><div class="menu-item-desc">Crispy golden coating with stretchy mozzarella</div></div><div class="menu-item-price">6pcs ৳520 / 10pcs ৳865</div></div>
-        <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">Loaded Fries</div><div class="menu-item-desc">Topped with cheese, jalapeños, and signature sauce</div></div><div class="menu-item-price">৳540</div></div>
-        <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">Peri-Peri Chicken Wings</div><div class="menu-item-desc">Fiery peri-peri glazed and oven-roasted</div></div><div class="menu-item-price">5pcs ৳390 / 8pcs ৳590</div></div>
-        <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">Hot BBQ Chicken Wings</div><div class="menu-item-desc">Smoky barbecue with a spicy kick</div></div><div class="menu-item-price">5pcs ৳390 / 8pcs ৳590</div></div>
-        <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">Alabama Chicken Wings</div><div class="menu-item-desc">Tangy white sauce style, Southern-inspired</div></div><div class="menu-item-price">5pcs ৳420 / 8pcs ৳620</div></div>
-        <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">Honey-Garlic Chicken Wings</div><div class="menu-item-desc">Sweet honey glaze with roasted garlic</div></div><div class="menu-item-price">5pcs ৳390 / 8pcs ৳590</div></div>
-        <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">Teriyaki Chicken Wings</div><div class="menu-item-desc">Japanese-inspired sweet soy glaze</div></div><div class="menu-item-price">5pcs ৳390 / 8pcs ৳590</div></div>
+        <div class="menu-item"><div class="menu-item-name">Mozzarella Sticks</div><div class="menu-item-desc">Crispy golden coating with stretchy mozzarella</div></div>
+        <div class="menu-item"><div class="menu-item-name">Loaded Fries</div><div class="menu-item-desc">Topped with cheese, jalapeños, and signature sauce</div></div>
+        <div class="menu-item"><div class="menu-item-name">Peri-Peri Chicken Wings</div><div class="menu-item-desc">Fiery peri-peri glazed and oven-roasted</div></div>
+        <div class="menu-item"><div class="menu-item-name">Hot BBQ Chicken Wings</div><div class="menu-item-desc">Smoky barbecue with a spicy kick</div></div>
+        <div class="menu-item"><div class="menu-item-name">Alabama Chicken Wings</div><div class="menu-item-desc">Tangy white sauce style, Southern-inspired</div></div>
+        <div class="menu-item"><div class="menu-item-name">Honey-Garlic Chicken Wings</div><div class="menu-item-desc">Sweet honey glaze with roasted garlic</div></div>
+        <div class="menu-item"><div class="menu-item-name">Teriyaki Chicken Wings</div><div class="menu-item-desc">Japanese-inspired sweet soy glaze</div></div>
       </div>
 
       <!-- Continental -->
       <div class="menu-grid" id="tab-continental">
-        <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">Spanish Saffron Chicken</div><div class="menu-item-desc">Saffron-infused roast with Mediterranean herbs</div></div><div class="menu-item-price">Qtr ৳490 / Half ৳660</div></div>
-        <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">French Lemon Butter Garlic Chicken</div><div class="menu-item-desc">Classic French preparation with citrus butter sauce</div></div><div class="menu-item-price">Qtr ৳510 / Half ৳680</div></div>
-        <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">Genovese Pesto Chicken</div><div class="menu-item-desc">Fresh basil pesto over tender roasted chicken</div></div><div class="menu-item-price">Qtr ৳490 / Half ৳660</div></div>
-        <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">Portuguese Chicken Madeira</div><div class="menu-item-desc">Rich Madeira wine sauce with roasted chicken</div></div><div class="menu-item-price">Qtr ৳490 / Half ৳660</div></div>
-        <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">American Cream Cheese Chicken</div><div class="menu-item-desc">Stuffed with cream cheese, herbs, and spices</div></div><div class="menu-item-price">Qtr ৳510 / Half ৳680</div></div>
+        <div class="menu-item"><div class="menu-item-name">Spanish Saffron Chicken</div><div class="menu-item-desc">Saffron-infused roast with Mediterranean herbs</div></div>
+        <div class="menu-item"><div class="menu-item-name">French Lemon Butter Garlic Chicken</div><div class="menu-item-desc">Classic French preparation with citrus butter sauce</div></div>
+        <div class="menu-item"><div class="menu-item-name">Genovese Pesto Chicken</div><div class="menu-item-desc">Fresh basil pesto over tender roasted chicken</div></div>
+        <div class="menu-item"><div class="menu-item-name">Portuguese Chicken Madeira</div><div class="menu-item-desc">Rich Madeira wine sauce with roasted chicken</div></div>
+        <div class="menu-item"><div class="menu-item-name">American Cream Cheese Chicken</div><div class="menu-item-desc">Stuffed with cream cheese, herbs, and spices</div></div>
       </div>
 
       <!-- Pasta -->
       <div class="menu-grid" id="tab-pasta">
-        <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">Spaghetti Bolognese</div><div class="menu-item-desc">Slow-simmered meat ragù over al dente spaghetti</div></div><div class="menu-item-price">৳610</div></div>
-        <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">Spaghetti with Meatballs</div><div class="menu-item-desc">Handmade meatballs in rich marinara sauce</div></div><div class="menu-item-price">৳580</div></div>
-        <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">Spaghetti Pesto Genovese</div><div class="menu-item-desc">Classic Genovese basil pesto with pine nuts</div></div><div class="menu-item-price">৳560</div></div>
-        <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">Creamy Spaghetti Pesto</div><div class="menu-item-desc">Pesto elevated with a velvety cream finish</div></div><div class="menu-item-price">৳620</div></div>
-        <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">Spaghetti Carbonara</div><div class="menu-item-desc">Traditional egg and pecorino with crispy pancetta</div></div><div class="menu-item-price">৳560</div></div>
-        <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">Creamy Spaghetti Carbonara</div><div class="menu-item-desc">Our signature rich, creamy take on the classic</div></div><div class="menu-item-price">৳620</div></div>
-        <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">Creamy Seafood Spaghetti</div><div class="menu-item-desc">Fresh seafood medley in garlic cream sauce</div></div><div class="menu-item-price">৳680</div></div>
+        <div class="menu-item"><div class="menu-item-name">Spaghetti Bolognese</div><div class="menu-item-desc">Slow-simmered meat ragù over al dente spaghetti</div></div>
+        <div class="menu-item"><div class="menu-item-name">Spaghetti with Meatballs</div><div class="menu-item-desc">Handmade meatballs in rich marinara sauce</div></div>
+        <div class="menu-item"><div class="menu-item-name">Spaghetti Pesto Genovese</div><div class="menu-item-desc">Classic Genovese basil pesto with pine nuts</div></div>
+        <div class="menu-item"><div class="menu-item-name">Creamy Spaghetti Pesto</div><div class="menu-item-desc">Pesto elevated with a velvety cream finish</div></div>
+        <div class="menu-item"><div class="menu-item-name">Spaghetti Carbonara</div><div class="menu-item-desc">Traditional egg and pecorino with crispy pancetta</div></div>
+        <div class="menu-item"><div class="menu-item-name">Creamy Spaghetti Carbonara</div><div class="menu-item-desc">Our signature rich, creamy take on the classic</div></div>
+        <div class="menu-item"><div class="menu-item-name">Creamy Seafood Spaghetti</div><div class="menu-item-desc">Fresh seafood medley in garlic cream sauce</div></div>
       </div>
 
       <!-- Indian Curry -->
       <div class="menu-grid" id="tab-curry">
-        <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">Shahi Paneer Masala</div><div class="menu-item-desc">Royal creamy gravy with soft paneer cubes</div></div><div class="menu-item-price">৳600</div></div>
-        <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">Paneer Tikka Masala</div><div class="menu-item-desc">Grilled paneer in smoky tikka gravy</div></div><div class="menu-item-price">৳580</div></div>
-        <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">Matar Paneer Masala</div><div class="menu-item-desc">Green peas and paneer in spiced tomato gravy</div></div><div class="menu-item-price">৳580</div></div>
-        <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">Palak Paneer</div><div class="menu-item-desc">Creamy spinach purée with soft paneer</div></div><div class="menu-item-price">৳560</div></div>
-        <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">Butter Paneer Masala</div><div class="menu-item-desc">Rich buttery tomato gravy, mild and luscious</div></div><div class="menu-item-price">৳600</div></div>
-        <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">Daal Makhni</div><div class="menu-item-desc">Slow-cooked black lentils in butter and cream</div></div><div class="menu-item-price">৳480</div></div>
-        <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">Daal Tadka</div><div class="menu-item-desc">Yellow lentils tempered with cumin and garlic</div></div><div class="menu-item-price">৳450</div></div>
+        <div class="menu-item"><div class="menu-item-name">Shahi Paneer Masala</div><div class="menu-item-desc">Royal creamy gravy with soft paneer cubes</div></div>
+        <div class="menu-item"><div class="menu-item-name">Paneer Tikka Masala</div><div class="menu-item-desc">Grilled paneer in smoky tikka gravy</div></div>
+        <div class="menu-item"><div class="menu-item-name">Matar Paneer Masala</div><div class="menu-item-desc">Green peas and paneer in spiced tomato gravy</div></div>
+        <div class="menu-item"><div class="menu-item-name">Palak Paneer</div><div class="menu-item-desc">Creamy spinach purée with soft paneer</div></div>
+        <div class="menu-item"><div class="menu-item-name">Butter Paneer Masala</div><div class="menu-item-desc">Rich buttery tomato gravy, mild and luscious</div></div>
+        <div class="menu-item"><div class="menu-item-name">Daal Makhni</div><div class="menu-item-desc">Slow-cooked black lentils in butter and cream</div></div>
+        <div class="menu-item"><div class="menu-item-name">Daal Tadka</div><div class="menu-item-desc">Yellow lentils tempered with cumin and garlic</div></div>
       </div>
 
       <!-- Sides & Fries -->
       <div class="menu-grid" id="tab-sides">
-        <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">Roasted Potatoes</div><div class="menu-item-desc">Herb-seasoned and oven-roasted golden</div></div><div class="menu-item-price">৳270</div></div>
-        <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">Sesame Roasted Green Beans</div><div class="menu-item-desc">Crisp beans with toasted sesame finish</div></div><div class="menu-item-price">৳270</div></div>
-        <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">Sautéed Veggies</div><div class="menu-item-desc">Seasonal vegetables, lightly seasoned</div></div><div class="menu-item-price">৳300</div></div>
-        <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">Grilled Veggies</div><div class="menu-item-desc">Chargrilled mixed vegetables with olive oil</div></div><div class="menu-item-price">৳320</div></div>
-        <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">Garlic Sautéed Veggies</div><div class="menu-item-desc">Fragrant garlic butter tossed vegetables</div></div><div class="menu-item-price">৳320</div></div>
-        <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">Stir-Fried Veggies</div><div class="menu-item-desc">Wok-tossed vegetables with Asian seasoning</div></div><div class="menu-item-price">৳420</div></div>
-        <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">Regular Coleslaw</div><div class="menu-item-desc">Creamy classic coleslaw, fresh and crunchy</div></div><div class="menu-item-price">৳330</div></div>
-        <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">Regular Potato Wedges</div><div class="menu-item-desc">Thick-cut golden fried wedges</div></div><div class="menu-item-price">৳230</div></div>
-        <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">Masala Potato Wedges</div><div class="menu-item-desc">Spiced with aromatic masala blend</div></div><div class="menu-item-price">৳290</div></div>
-        <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">Panko Potato Wedges</div><div class="menu-item-desc">Extra crispy Japanese panko breadcrumb coating</div></div><div class="menu-item-price">৳340</div></div>
-        <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">Hot BBQ Potato Wedges</div><div class="menu-item-desc">Smoky BBQ seasoning with a spicy finish</div></div><div class="menu-item-price">৳350</div></div>
-        <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">Salt &amp; Pepper Wedges</div><div class="menu-item-desc">Simply seasoned, perfectly golden</div></div><div class="menu-item-price">৳250</div></div>
-        <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">Garlic Potato Wedges</div><div class="menu-item-desc">Roasted garlic infused with herbs</div></div><div class="menu-item-price">৳270</div></div>
-        <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">Peri-Peri Potato Wedges</div><div class="menu-item-desc">Fiery peri-peri spice dusted wedges</div></div><div class="menu-item-price">৳310</div></div>
+        <div class="menu-item"><div class="menu-item-name">Roasted Potatoes</div><div class="menu-item-desc">Herb-seasoned and oven-roasted golden</div></div>
+        <div class="menu-item"><div class="menu-item-name">Sesame Roasted Green Beans</div><div class="menu-item-desc">Crisp beans with toasted sesame finish</div></div>
+        <div class="menu-item"><div class="menu-item-name">Sautéed Veggies</div><div class="menu-item-desc">Seasonal vegetables, lightly seasoned</div></div>
+        <div class="menu-item"><div class="menu-item-name">Grilled Veggies</div><div class="menu-item-desc">Chargrilled mixed vegetables with olive oil</div></div>
+        <div class="menu-item"><div class="menu-item-name">Garlic Sautéed Veggies</div><div class="menu-item-desc">Fragrant garlic butter tossed vegetables</div></div>
+        <div class="menu-item"><div class="menu-item-name">Stir-Fried Veggies</div><div class="menu-item-desc">Wok-tossed vegetables with Asian seasoning</div></div>
+        <div class="menu-item"><div class="menu-item-name">Regular Coleslaw</div><div class="menu-item-desc">Creamy classic coleslaw, fresh and crunchy</div></div>
+        <div class="menu-item"><div class="menu-item-name">Regular Potato Wedges</div><div class="menu-item-desc">Thick-cut golden fried wedges</div></div>
+        <div class="menu-item"><div class="menu-item-name">Masala Potato Wedges</div><div class="menu-item-desc">Spiced with aromatic masala blend</div></div>
+        <div class="menu-item"><div class="menu-item-name">Panko Potato Wedges</div><div class="menu-item-desc">Extra crispy Japanese panko breadcrumb coating</div></div>
+        <div class="menu-item"><div class="menu-item-name">Hot BBQ Potato Wedges</div><div class="menu-item-desc">Smoky BBQ seasoning with a spicy finish</div></div>
+        <div class="menu-item"><div class="menu-item-name">Salt &amp; Pepper Wedges</div><div class="menu-item-desc">Simply seasoned, perfectly golden</div></div>
+        <div class="menu-item"><div class="menu-item-name">Garlic Potato Wedges</div><div class="menu-item-desc">Roasted garlic infused with herbs</div></div>
+        <div class="menu-item"><div class="menu-item-name">Peri-Peri Potato Wedges</div><div class="menu-item-desc">Fiery peri-peri spice dusted wedges</div></div>
+      </div>
+
+      <!-- Download PDF Button -->
+      <div class="menu-download reveal">
+        <a href="#" class="btn-pill btn-outline" onclick="alert('PDF menu coming soon!'); return false;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 8px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Download Full Menu (PDF)
+        </a>
       </div>
     </div>
   </section>
@@ -1231,9 +1278,9 @@
             </a>
           </div>
         </div>
-        <div class="contact-map reveal">
+        <div class="contact-map reveal reveal-delay-2">
           <iframe 
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3618.947!2d91.8687!3d24.8949!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x375054d3d4e6b1b%3A0x1!2s47%2FA%20Nayasarak%2C%20Mamun%20Villa%2C%20Sylhet%2C%20Bangladesh!5e0!3m2!1sen!2sbd!4v1700000000000!5m2!1sen!2sbd" 
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3619.0207510074874!2d91.8739708!3d24.89727379999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3750550cc3ddd329%3A0x63bbf6fc297aecad!2sSEASONS%20Grand!5e0!3m2!1sen!2sbd!4v1776100265481!5m2!1sen!2sbd" 
             width="100%" 
             height="420" 
             style="border:0;" 
@@ -1249,6 +1296,7 @@
 
   <!-- ========== FOOTER ========== -->
   <footer class="footer">
+    <p class="footer-address">📍 47/A Nayasarak, Mamun Villa, Sylhet, Bangladesh, 3100</p>
     <p class="footer-copy">© 2025 SEASONS Grand, Sylhet · All rights reserved.</p>
     <div class="footer-socials">
       <a href="https://www.facebook.com/SeasonsGrand" target="_blank" aria-label="Facebook">
@@ -1304,26 +1352,28 @@
       });
     });
 
-    // ========== INTERSECTION OBSERVER (Reveal on scroll) ==========
+    // ========== AOS-STYLE INTERSECTION OBSERVER ==========
     const observerOptions = {
-      threshold: 0.1,
-      rootMargin: '0px 0px -50px 0px'
+      threshold: 0.08,
+      rootMargin: '0px 0px -60px 0px'
     };
 
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add('visible');
-          // Stagger children
+          // Stagger children with AOS-like delays
           const children = entry.target.querySelectorAll('.stat-card, .highlight-card, .contact-item, .menu-item');
           children.forEach((child, i) => {
             child.style.opacity = '0';
-            child.style.transform = 'translateY(20px)';
-            child.style.transition = `opacity 0.5s ${i * 0.1}s, transform 0.5s ${i * 0.1}s`;
-            setTimeout(() => {
-              child.style.opacity = '1';
-              child.style.transform = 'translateY(0)';
-            }, 50);
+            child.style.transform = 'translateY(24px)';
+            child.style.transition = `opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1) ${i * 0.08}s, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) ${i * 0.08}s`;
+            requestAnimationFrame(() => {
+              requestAnimationFrame(() => {
+                child.style.opacity = '1';
+                child.style.transform = 'translateY(0)';
+              });
+            });
           });
           observer.unobserve(entry.target);
         }
@@ -1335,8 +1385,10 @@
     // ========== SMOOTH SCROLL FOR NAV LINKS ==========
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function(e) {
+        const href = this.getAttribute('href');
+        if (href === '#') return;
         e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
+        const target = document.querySelector(href);
         if (target) {
           target.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
